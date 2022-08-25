@@ -1,0 +1,80 @@
+{
+    "name": "superplate",
+    "plugins": [
+        {
+            "name": "Chakra UI",
+            "description": "Chakra UI is a simple, modular and accessible component library that gives you the building blocks you need to build your React applications.",
+            "url": "https://chakra-ui.com/docs/getting-started"
+        },
+        {
+            "name": "CSS / styled-jsx",
+            "description": "Next.js comes with built-in support for CSS and styled-jsx. Styled-jsx is full, scoped and component-friendly CSS support for JSX (rendered on the server or the client).",
+            "url": "https://github.com/vercel/styled-jsx"
+        },
+        {
+            "name": "Fetch",
+            "description": "Next.js has a built-in polyfill for the fetch API. You don't need to worry about using it on either server or client side.",
+            "url": "https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API"
+        },
+        {
+            "name": "Axios",
+            "description": "Promise based HTTP client for the browser and node.js.",
+            "url": "https://github.com/axios/axios"
+        },
+        {
+            "name": "SVGR",
+            "description": "Transform SVGs into React components.",
+            "url": "https://react-svgr.com/docs/getting-started/"
+        },
+        {
+            "name": "Environment Variables",
+            "description": "Use environment variables in your next.js project for server side, client or both.",
+            "url": "https://github.com/vercel/next.js/tree/canary/examples/environment-variables"
+        },
+        {
+            "name": "Bundle Analyzer",
+            "description": "Use webpack-bundle-analyzer in your Next.js project. Visualize size of webpack output files with an interactive zoomable treemap.",
+            "url": "https://github.com/vercel/next.js/tree/canary/packages/next-bundle-analyzer"
+        },
+        {
+            "name": "react-use",
+            "description": "A Collection of useful React hooks.",
+            "url": "https://github.com/streamich/react-use"
+        },
+        {
+            "name": "React Redux",
+            "description": "Redux helps you write applications that behave consistently, run in different environments (client, server, and native), and are easy to test.",
+            "url": "https://redux.js.org/introduction/getting-started"
+        },
+        {
+            "name": "RTK Query",
+            "description": "RTK Query is a powerful data fetching and caching tool",
+            "url": "https://redux-toolkit.js.org/rtk-query/overview"
+        },
+        {
+            "name": "ESLint",
+            "description": "A pluggable and configurable linter tool for identifying and reporting on patterns in JavaScript. Maintain your code quality with ease.",
+            "url": "https://eslint.org/docs/user-guide/getting-started"
+        },
+        {
+            "name": "Prettier",
+            "description": "An opinionated code formatter; Supports many languages; Integrates with most editors.",
+            "url": "https://prettier.io/docs/en/index.html"
+        },
+        {
+            "name": "lint-staged",
+            "description": " The concept of lint-staged is to run configured linter (or other) tasks on files that are staged in git.",
+            "url": "https://github.com/okonet/lint-staged"
+        },
+        {
+            "name": "Enzyme",
+            "description": "Enzyme is a JavaScript Testing utility for React that makes it easier to test your React Components' output. You can also manipulate, traverse, and in some ways simulate runtime given the output.",
+            "url": "https://enzymejs.github.io/enzyme/"
+        },
+        {
+            "name": "Travis CI",
+            "description": "Travis CI enables your team to test and ship your apps with confidence. Easily sync your projects with Travis CI and you'll be testing your code in minutes.",
+            "url": "https://docs.travis-ci.com/"
+        }
+    ]
+}
