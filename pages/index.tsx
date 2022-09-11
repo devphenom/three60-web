@@ -1,12 +1,17 @@
-import React from "react";
-import { Flex } from "@chakra-ui/react";
+import React from 'react';
+import Landing from '@components/home/landing';
+import { Container, Flex } from '@chakra-ui/react';
+import Auth from '@components/auth/auth';
 
 const Home: React.FC = () => {
-    return (
-        <Flex direction="column" minH="100vh">
-            three60🙏
-        </Flex>
-    );
+  return (
+    <Container maxW="container.3xl" p="0">
+      <Flex minH="100vh">
+        <Landing />
+        <Auth />
+      </Flex>
+    </Container>
+  );
 };
 
 export default Home;

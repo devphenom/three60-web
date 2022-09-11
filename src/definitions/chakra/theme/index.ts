@@ -1,10 +1,10 @@
-import { extendTheme } from "@chakra-ui/react";
+import { extendTheme, theme as base } from '@chakra-ui/react';
 
-import styles from "./styles";
+import styles from './styles';
 
-import colors from "./foundations/colors";
+import colors from './foundations/colors';
 
-import fontSizes from "./foundations/fontSizes";
+// import fontSizes from "./foundations/fontSizes";
 
 /**
  * This file is generated for providing a custom theme to Chakra UI
@@ -14,9 +14,13 @@ import fontSizes from "./foundations/fontSizes";
  */
 
 const overrides = {
-    ...styles,
-    colors,
-    fontSizes,
+  ...styles,
+  colors,
+  // fontSizes,
+  fonts: {
+    heading: `Rubik, ${base.fonts?.heading}`,
+    body: `Rubik, ${base.fonts?.body}`,
+  },
 };
 
 const theme = extendTheme(overrides);
