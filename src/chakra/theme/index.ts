@@ -1,8 +1,12 @@
-import { extendTheme, theme as base } from "@chakra-ui/react";
+import {
+  extendTheme,
+  theme as base,
+  withDefaultVariant,
+} from '@chakra-ui/react';
 
-import styles from "./styles";
+import styles from './styles';
 
-import colors from "./foundations/colors";
+import colors from './foundations/colors';
 
 // import fontSizes from "./foundations/fontSizes";
 
@@ -23,6 +27,12 @@ const overrides = {
   },
 };
 
-const theme = extendTheme(overrides);
+const theme = extendTheme(
+  overrides,
+  withDefaultVariant({
+    variant: 'filled',
+    components: ['Input', 'Select'],
+  }),
+);
 
 export default theme;

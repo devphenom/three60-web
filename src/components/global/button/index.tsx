@@ -6,7 +6,7 @@ export type IButton = ButtonProps;
 export const Button: React.FC<IButton> = ({ ...rest }) => {
   return (
     <div>
-      <BaseButton {...rest} />
+      <BaseButton {...rest} borderRadius="3px" fontWeight="400" py={4} />
     </div>
   );
 };
