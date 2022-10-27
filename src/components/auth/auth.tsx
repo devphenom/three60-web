@@ -6,6 +6,8 @@ import { Button } from '@global/button';
 import FormInput from '@global/form-input/form-input';
 import { SIGNUP_VALIDATION_SCHEMA } from './formValidation';
 import useAxios from '../../hooks/use-axios';
+import { useDispatch, useSelector } from 'react-redux';
+import { login } from '../../redux/features/user';
 
 // type Props = {};
 
@@ -14,6 +16,14 @@ const Auth: React.FC = () => {
     url: '/',
     method: 'GET',
   });
+
+  const dispatch = useDispatch();
+
+  const user = useSelector((state) => state.user);
+
+  const handleClick = () => {
+    dispatch(login({ email: 'iphenom01' }));
+  };
 
   React.useEffect(() => {
     handleRequest?.();
