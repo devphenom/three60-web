@@ -29,10 +29,11 @@ const Landing: React.FC = () => (
       flex="1"
       bg="brand.100"
       color="white"
-      justify="center"
+      justify="flex-start"
       align="flex-start"
       spacing={12}
       px={20}
+      pt={50}
       position="fixed"
       top={0}
       bottom={0}

@@ -4,10 +4,22 @@ import { Box, Heading, HStack, Image, Stack, Text } from '@chakra-ui/react';
 
 import { Button } from '@global/button';
 import FormInput from '@global/form-input/form-input';
+import { SIGNUP_VALIDATION_SCHEMA } from './formValidation';
+import useAxios from '../../hooks/use-axios';
 
 // type Props = {};
 
 const Auth: React.FC = () => {
+  const { handleRequest, loading, data, status, error } = useAxios({
+    url: '/',
+    method: 'GET',
+  });
+
+  React.useEffect(() => {
+    handleRequest?.();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <Box flex="1" p="50px 100px">
       <Stack w="full" alignItems="flex-start">
@@ -26,10 +38,7 @@ const Auth: React.FC = () => {
           // children={undefined}
           initialValues={{ email: '', password: '', confirmPassword: '' }}
           onSubmit={(values: FormikValues) => console.log(values)}
-          // initialValues={initialValues}
-          // validationSchema={HOST_ACCOUNT_INFO_FORM_SCHEMA}
-          // innerRef={hostBankFormRef}
-          // onSubmit={() => null}
+          validationSchema={SIGNUP_VALIDATION_SCHEMA}
         >
           {({ values, errors, touched, handleChange, handleSubmit }) => {
             return (
@@ -42,7 +51,7 @@ const Auth: React.FC = () => {
                     type="email"
                     placeholder="johndoe@three60.com"
                     value={values.email}
-                    isInvalid={touched.email && !!errors.email}
+                    isInvalid={touched?.email && !!errors?.email}
                     validationMessage={touched.email && errors.email}
                     onChange={handleChange}
                   />

@@ -36,10 +36,15 @@ const StylednInput = styled(Input)`
 const FormInput: React.FC<IFormInput> = (props) => {
   const { label, isInvalid, validationMessage, mb, ...rest } = props;
   return (
-    <FormControl mb={mb || 4} color="var(--form-label)">
+    <FormControl mb={mb || 4} color="var(--form-label)" isInvalid={isInvalid}>
       {label && <FormLabel fontWeight="400"> {label} </FormLabel>}
       <StylednInput {...rest} w="full" />
-      {isInvalid && <FormErrorMessage> {validationMessage} </FormErrorMessage>}
+      {isInvalid && (
+        <FormErrorMessage fontWeight={300}>
+          {' '}
+          {validationMessage}{' '}
+        </FormErrorMessage>
+      )}
     </FormControl>
   );
 };
