@@ -1,3 +1,5 @@
+import { ChangeEventHandler } from 'react';
+
 export interface IFormInput {
   label?: string;
   isInvalid?: boolean;
@@ -7,6 +9,6 @@ export interface IFormInput {
   name: string;
   placeholder?: string;
   value: any;
-  onChange: Function;
+  onChange: ChangeEventHandler<HTMLInputElement>;
   type?: string;
 }
