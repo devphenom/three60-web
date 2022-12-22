@@ -21,3 +21,8 @@ export const SIGNUP_VALIDATION_SCHEMA = yup.object().shape({
       (value, context) => context.parent.password === value,
     ),
 });
+
+export const SIGNIN_VALIDATION_SCHEMA = yup.object().shape({
+  username: yup.string().trim().required('Username/email is required'),
+  password: yup.string().trim().required('Password is required'),
+});
