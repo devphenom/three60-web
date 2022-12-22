@@ -1,6 +1,7 @@
 import * as yup from 'yup';
 
 export const SIGNUP_VALIDATION_SCHEMA = yup.object().shape({
+  username: yup.string().trim().required('Username is required'),
   email: yup
     .string()
     .trim()
@@ -11,11 +12,11 @@ export const SIGNUP_VALIDATION_SCHEMA = yup.object().shape({
     .required('Password is required')
     .min(8, ({ min }) => `Password must be minimum of ${min} characters`),
 
-  confirmPassword: yup
+  confirm_password: yup
     .string()
     .required('Confirm password is required')
     .test(
-      'confirmPassword',
+      'confirm_password',
       'Passwords must match',
       (value, context) => context.parent.password === value,
     ),

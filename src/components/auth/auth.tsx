@@ -1,37 +1,41 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Formik, FormikHelpers, FormikValues } from 'formik';
 import { Box, Heading, HStack, Image, Stack, Text } from '@chakra-ui/react';
 
 import { Button } from '@global/button';
 import FormInput from '@global/form-input/form-input';
+
 import { SIGNUP_VALIDATION_SCHEMA } from './formValidation';
-import useAxios from '../../hooks/use-axios';
-import { useDispatch, useSelector } from 'react-redux';
-import { login } from '../../redux/features/user';
+import { useLazyAxios } from '@hooks/use-axios';
+import { login } from '@redux/features/user';
+import useToaster from '../../hooks/use-toast';
 
 // type Props = {};
 
 const Auth: React.FC = () => {
-  const { handleRequest, loading, data, status, error } = useAxios({
-    url: '/',
-    method: 'GET',
-  });
-
   const dispatch = useDispatch();
 
-  const user = useSelector((state) => state.user);
+  const toaster = useToaster();
 
-  const handleClick = () => {
-    dispatch(login({ email: 'iphenom01' }));
+  const [signUp, { loading }] = useLazyAxios('/auth/register', 'POST');
+
+  const register = async (values: FormikValues) => {
+    const { data, error } = await signUp(values);
+
+    if (data) {
+      console.log('data');
+      toaster.success('An error occuredjjj');
+    }
+
+    if (error) {
+      toaster.danger('An error occured');
+      console.log(error);
+    }
   };
 
-  React.useEffect(() => {
-    handleRequest?.();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   return (
-    <Box flex="1" p="50px 100px">
+    <Box flex="1" p={['20px', '20px', '50px 100px']}>
       <Stack w="full" alignItems="flex-start">
         <HStack mb={4}>
           <Image alt="logo" src="/icons/logo.svg" />
@@ -45,15 +49,30 @@ const Auth: React.FC = () => {
         </Heading>
         <Formik
           enableReinitialize
-          // children={undefined}
-          initialValues={{ email: '', password: '', confirmPassword: '' }}
-          onSubmit={(values: FormikValues) => console.log(values)}
+          initialValues={{
+            username: '',
+            email: '',
+            password: '',
+            confirm_password: '',
+          }}
+          onSubmit={register}
           validationSchema={SIGNUP_VALIDATION_SCHEMA}
         >
           {({ values, errors, touched, handleChange, handleSubmit }) => {
             return (
               <form onSubmit={handleSubmit}>
                 <Box w="full" maxW="384px">
+                  <FormInput
+                    mb={5}
+                    label="Username"
+                    name="username"
+                    placeholder="Enter your username"
+                    value={values.username}
+                    isInvalid={touched?.username && !!errors?.username}
+                    validationMessage={touched.username && errors.username}
+                    onChange={handleChange}
+                  />
+
                   <FormInput
                     mb={5}
                     label="Email"
@@ -79,21 +98,27 @@ const Auth: React.FC = () => {
                   />
                   <FormInput
                     label="Confirm Password"
-                    name="confirmPassword"
+                    name="confirm_password"
                     placeholder="********"
-                    value={values.confirmPassword}
+                    value={values.confirm_password}
                     isInvalid={
-                      touched.confirmPassword && !!errors.confirmPassword
+                      touched.confirm_password && !!errors.confirm_password
                     }
                     validationMessage={
-                      touched.confirmPassword && errors.confirmPassword
+                      touched.confirm_password && errors.confirm_password
                     }
                     onChange={handleChange}
                     type="password"
                     mb={7}
                   />
 
-                  <Button mb={6} type="submit" w="full" colorScheme="brand">
+                  <Button
+                    isLoading={loading}
+                    mb={6}
+                    type="submit"
+                    w="full"
+                    colorScheme="brand"
+                  >
                     Sign Up
                   </Button>
                   <Button

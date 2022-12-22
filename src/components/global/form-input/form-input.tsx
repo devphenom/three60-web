@@ -23,10 +23,6 @@ const StylednInput = styled(Input)`
   font-size: 0.875rem;
   transition: 0.5s ease all;
 
-  &::placeholder {
-    color: var(--black-lighter-color);
-  }
-
   &:focus {
     box-shadow: none !important;
     border-color: var(--brand-500);

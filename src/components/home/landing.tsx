@@ -4,7 +4,7 @@ import { Box, Flex, Heading, HStack, Text, VStack } from '@chakra-ui/react';
 import Image from 'next/image';
 
 const HomeIcons = ({ imageSrc, text }: HomeIconsProps) => (
-  <Box w="144px" h="105px" bg="white" borderRadius="5px">
+  <Box w={['full', '144px', '144px']} h="105px" bg="white" borderRadius="5px">
     <HStack alignItems="center" justifyContent="center" h="full">
       <Text
         as="span"
@@ -24,7 +24,7 @@ const HomeIcons = ({ imageSrc, text }: HomeIconsProps) => (
 );
 
 const Landing: React.FC = () => (
-  <Box w="50%" h="full auto">
+  <Box w={['full', '50%', '50%']} h="full auto">
     <VStack
       flex="1"
       bg="brand.100"
@@ -32,18 +32,23 @@ const Landing: React.FC = () => (
       justify="flex-start"
       align="flex-start"
       spacing={12}
-      px={20}
-      pt={50}
-      position="fixed"
+      px={[10, 20, 20]}
+      py={50}
+      position={['inherit', 'fixed', 'fixed']}
       top={0}
       bottom={0}
     >
-      <Heading as="h1" fontSize="48px" fontWeight={400}>
+      <Heading as="h1" fontSize={'48px'} fontWeight={400}>
         {/* eslint-disable-next-line react/no-unescaped-entities */}
         Track how far <br /> you've gone
       </Heading>
 
-      <Flex color="blackAlpha.600" gap={5}>
+      <Flex
+        color="blackAlpha.600"
+        gap={5}
+        flexDir={['column', 'row', 'row']}
+        width="full"
+      >
         <HomeIcons imageSrc="/icons/todos.svg" text="todos" />
         <HomeIcons imageSrc="/icons/notes.svg" text="notes" />
         <HomeIcons imageSrc="/icons/bookmarks.svg" text="bookmarks" />
