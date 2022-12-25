@@ -7,6 +7,7 @@ const HomeIcons = ({ imageSrc, text }: HomeIconsProps) => (
   <Box w={['full', '144px', '144px']} h="105px" bg="white" borderRadius="5px">
     <HStack alignItems="center" justifyContent="center" h="full">
       <Text
+        data-testid="landing-lists"
         as="span"
         borderRadius="50%"
         bg="blackAlpha.200"
@@ -53,7 +54,7 @@ const Landing: React.FC = () => (
         <HomeIcons imageSrc="/icons/notes.svg" text="notes" />
         <HomeIcons imageSrc="/icons/bookmarks.svg" text="bookmarks" />
       </Flex>
-      <Text maxW="500px">
+      <Text maxW="500px" data-testid="description">
         Sit nisi incididunt tempor do duis fugiat proident excepteur. Ex elit
         pariatur incididunt nostrud occaecat mollit id occaecat. Voluptate
         adipisicing commodo.{' '}
