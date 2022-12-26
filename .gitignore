@@ -39,3 +39,6 @@ old
 
 .yarn/cache
 .yarn/*.gz
+/test-results/
+/playwright-report/
+/playwright/.cache/
