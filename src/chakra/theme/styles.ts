@@ -4,7 +4,7 @@ type GlobalStyles = Pick<ThemeOverride, 'styles'>;
 
 export default {
   styles: {
-    global: {
+    global: (props) => ({
       h1: {
         fontWeight: 500,
         marginBottom: '0.5em',
@@ -12,6 +12,9 @@ export default {
       p: {
         marginBottom: '1em',
       },
-    },
+      '*::placeholder': {
+        color: 'blackAlpha.600',
+      },
+    }),
   },
 } as GlobalStyles;

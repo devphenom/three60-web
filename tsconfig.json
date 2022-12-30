@@ -14,7 +14,7 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
-    "baseUrl": ".",
+    "baseUrl": "./",
     "paths": {
       "@chakra/*": ["src/chakra/*"],
       "@chakra": ["src/chakra"],
@@ -23,7 +23,11 @@
       "@components/*": ["src/components/*"],
       "@components": ["src/components"],
       "@global": ["src/components/global"],
-      "@global/*": ["src/components/global/*"]
+      "@global/*": ["src/components/global/*"],
+      "@redux": ["src/redux"],
+      "@redux/*": ["src/redux/*"],
+      "@hooks": ["src/hooks"],
+      "@hooks/*": ["src/hooks/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src"],
