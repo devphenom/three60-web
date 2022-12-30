@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Landing renders landing correctly 1`] = `
+exports[`Landing should render landing without crashing 1`] = `
 <h1
   class="chakra-heading css-0"
 >
@@ -10,7 +10,7 @@ exports[`Landing renders landing correctly 1`] = `
 </h1>
 `;
 
-exports[`Landing renders landing correctly 2`] = `
+exports[`Landing should render landing without crashing 2`] = `
 [
   <span
     class="chakra-text css-0"
@@ -96,4 +96,4 @@ exports[`Landing renders landing correctly 2`] = `
 ]
 `;
 
-exports[`Landing renders landing correctly 3`] = `"Sit nisi incididunt tempor do duis fugiat proident excepteur. Ex elit pariatur incididunt nostrud occaecat mollit id occaecat. Voluptate adipisicing commodo. "`;
+exports[`Landing should render landing without crashing 3`] = `"Sit nisi incididunt tempor do duis fugiat proident excepteur. Ex elit pariatur incididunt nostrud occaecat mollit id occaecat. Voluptate adipisicing commodo. "`;

@@ -1,6 +1,6 @@
 import React from 'react';
-import Auth from '@components/auth/auth';
-import Landing from '@components/home/landing';
+import Auth from '@components/home/auth/auth';
+import Landing from '@components/home/landing/landing';
 import { Container, Flex } from '@chakra-ui/react';
 
 const Home: React.FC = () => {

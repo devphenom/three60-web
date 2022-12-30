@@ -1,33 +1,34 @@
 import GoogleLogin from 'react-google-login';
 import { Formik, FormikValues } from 'formik';
-import { Box, Heading, Image, Text } from '@chakra-ui/react';
+import { Box, Heading, HStack, Image, Stack, Text } from '@chakra-ui/react';
 
 import { Button } from '@global/button';
-import useToaster from '@hooks/use-toast';
-import { useLazyAxios } from '@hooks/use-axios';
+import useToaster from '@hooks/use-toast/use-toast';
+import { useLazyAxios } from '@hooks/use-axios/use-axios';
 import FormInput from '@global/form-input/form-input';
 
 import { AuthProps } from '../types';
-import { SIGNIN_VALIDATION_SCHEMA } from '../formValidation';
+import { SIGNUP_VALIDATION_SCHEMA } from '../formValidation';
 
-type SignInProps = AuthProps;
+type RegisterProps = AuthProps;
 
-const SignIn: React.FC<SignInProps> = (props: SignInProps) => {
+const Register: React.FC<RegisterProps> = (props) => {
   const { handleAuth } = props;
 
   const toaster = useToaster();
 
-  const [signIn, { loading }] = useLazyAxios('/auth/signin', 'POST');
+  const [signUp, { loading }] = useLazyAxios('/auth/register', 'POST');
 
   const onSubmit = async (values: FormikValues) => {
-    const { data, error } = await signIn(values);
+    const { data, error } = await signUp(values);
 
     if (data) {
-      toaster.success('Logged In');
+      console.log('data');
+      toaster.success('An error occuredjjj');
     }
 
     if (error) {
-      toaster.danger('Error occured');
+      toaster.danger('An error occured');
       console.log(error);
     }
   };
@@ -35,30 +36,43 @@ const SignIn: React.FC<SignInProps> = (props: SignInProps) => {
   return (
     <>
       <Heading as="h2" fontSize="24px" fontWeight="500">
-        Welcome Back
+        Create Account
       </Heading>
-      <Text color="blackAlpha.400">Login to continue</Text>
       <Formik
         enableReinitialize
         initialValues={{
           username: '',
+          email: '',
           password: '',
+          confirm_password: '',
         }}
         onSubmit={onSubmit}
-        validationSchema={SIGNIN_VALIDATION_SCHEMA}
+        validationSchema={SIGNUP_VALIDATION_SCHEMA}
       >
         {({ values, errors, touched, handleChange, handleSubmit }) => {
           return (
             <form onSubmit={handleSubmit}>
-              <Box w="full" maxW="384px" mt={5}>
+              <Box w="full" maxW="384px">
                 <FormInput
                   mb={5}
-                  label="Username/Email"
+                  label="Username"
                   name="username"
-                  placeholder="Enter your username or email"
+                  placeholder="Enter your username"
                   value={values.username}
                   isInvalid={touched?.username && !!errors?.username}
                   validationMessage={touched.username && errors.username}
+                  onChange={handleChange}
+                />
+
+                <FormInput
+                  mb={5}
+                  label="Email"
+                  name="email"
+                  type="email"
+                  placeholder="johndoe@three60.com"
+                  value={values.email}
+                  isInvalid={touched?.email && !!errors?.email}
+                  validationMessage={touched.email && errors.email}
                   onChange={handleChange}
                 />
 
@@ -73,6 +87,21 @@ const SignIn: React.FC<SignInProps> = (props: SignInProps) => {
                   onChange={handleChange}
                   type="password"
                 />
+                <FormInput
+                  label="Confirm Password"
+                  name="confirm_password"
+                  placeholder="********"
+                  value={values.confirm_password}
+                  isInvalid={
+                    touched.confirm_password && !!errors.confirm_password
+                  }
+                  validationMessage={
+                    touched.confirm_password && errors.confirm_password
+                  }
+                  onChange={handleChange}
+                  type="password"
+                  mb={7}
+                />
 
                 <Button
                   isLoading={loading}
@@ -81,7 +110,7 @@ const SignIn: React.FC<SignInProps> = (props: SignInProps) => {
                   w="full"
                   colorScheme="brand"
                 >
-                  Sign In
+                  Sign Up
                 </Button>
                 <GoogleLogin
                   clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || ''}
@@ -106,14 +135,14 @@ const SignIn: React.FC<SignInProps> = (props: SignInProps) => {
                 />
 
                 <Text>
-                  Not yet signed up?{' '}
+                  Already have an account?{' '}
                   <Text
                     color="brand.500"
                     as="span"
                     cursor="pointer"
                     onClick={handleAuth}
                   >
-                    Create your account here
+                    Sign in
                   </Text>
                 </Text>
               </Box>
@@ -125,4 +154,4 @@ const SignIn: React.FC<SignInProps> = (props: SignInProps) => {
   );
 };
 
-export default SignIn;
+export default Register;

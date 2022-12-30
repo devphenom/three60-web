@@ -20,6 +20,7 @@ const customJestConfig = {
   testEnvironment: 'jest-environment-jsdom',
   setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
   moduleNameMapper: {
+    axios: '<rootDir>/node_modules/axios/dist/node/axios.cjs',
     '^@chakra/(.*)$': '<rootDir>/src/chakra/$1',
     '^@styles/(.*)$': '<rootDir>/styles/$1',
     '^@components/(.*)$': '<rootDir>/src/components/$1',

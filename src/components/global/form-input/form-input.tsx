@@ -5,8 +5,20 @@ import {
   Input,
 } from '@chakra-ui/react';
 import styled from '@emotion/styled';
-import React from 'react';
-import { IFormInput } from './type';
+import React, { ChangeEventHandler } from 'react';
+
+interface IFormInput {
+  label?: string;
+  isInvalid?: boolean;
+  validationMessage?: any;
+  mb?: number | string;
+  id?: string;
+  name: string;
+  placeholder?: string;
+  value: any;
+  onChange: ChangeEventHandler<HTMLInputElement>;
+  type?: string;
+}
 
 const StylednInput = styled(Input)`
   box-shadow: none;
