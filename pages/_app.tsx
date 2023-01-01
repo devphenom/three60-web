@@ -1,7 +1,7 @@
 import type { AppProps } from 'next/app';
 import { Provider } from 'react-redux';
 import { ChakraProvider } from '@chakra-ui/react';
-import theme from '@chakra/theme';
+import theme from 'theme';
 import store from '@redux/store';
 
 import '@styles/globals.css';

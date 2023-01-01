@@ -21,13 +21,14 @@ const customJestConfig = {
   setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
   moduleNameMapper: {
     axios: '<rootDir>/node_modules/axios/dist/node/axios.cjs',
-    '^@chakra/(.*)$': '<rootDir>/src/chakra/$1',
+    '^@chakra/(.*)$': '<rootDir>/chakra/$1',
     '^@styles/(.*)$': '<rootDir>/styles/$1',
-    '^@components/(.*)$': '<rootDir>/src/components/$1',
-    '^@global/(.*)$': '<rootDir>/src/components/global/$1',
-    '^@redux/(.*)$': '<rootDir>/src/redux/$1',
-    '^@hooks/(.*)$': '<rootDir>/src/hooks/$1',
-    '^@utils/(.*)$': '<rootDir>/src/utils/$1',
+    '^@components/(.*)$': '<rootDir>/components/$1',
+    '^@global/(.*)$': '<rootDir>/components/global/$1',
+    '^@redux/(.*)$': '<rootDir>/redux/$1',
+    '^@hooks/(.*)$': '<rootDir>/hooks/$1',
+    '^@utils/(.*)$': '<rootDir>/utils/$1',
+    '^@icons/(.*)$': '<rootDir>/icons/$1',
   },
 };
 
