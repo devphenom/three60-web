@@ -1,9 +1,10 @@
 import React from 'react';
+import { TodosComponent } from '@components/todos';
 
 type Props = {};
 
 const Todos = (props: Props) => {
-  return <div>Todos</div>;
+  return <TodosComponent />;
 };
 
 export default Todos;
