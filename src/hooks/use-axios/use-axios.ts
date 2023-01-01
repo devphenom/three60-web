@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { object } from 'yup';
+import { getHTTPErrorMessage } from '../../utils/functions';
 
 // Axios Instance
 const axiosInstance = axios.create({
@@ -37,54 +37,54 @@ type IUseLazyAxios = [
   },
 ];
 
-const useAxios = (url: string, method: string, payload?: object): IUseAxios => {
-  const [data, setData] = useState(null);
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false);
+// const useAxios = (url: string, method: string, payload?: object): IUseAxios => {
+//   const [data, setData] = useState(null);
+//   const [error, setError] = useState(null);
+//   const [loading, setLoading] = useState(false);
 
-  const controllerRef = useRef(new AbortController());
+//   const controllerRef = useRef(new AbortController());
 
-  const cancel = () => {
-    controllerRef.current?.abort();
-  };
+//   const cancel = () => {
+//     controllerRef.current?.abort();
+//   };
 
-  const handleRequest = useCallback(
-    async (param?: object) => {
-      try {
-        setLoading(true);
+//   const handleRequest: THandleRequest = useCallback(
+//     async (param?: object) => {
+//       try {
+//         setLoading(true);
 
-        const response: AxiosResponse = await axiosInstance.request({
-          data: payload ?? param,
-          signal: controllerRef.current.signal,
-          method,
-          url,
-        });
+//         const response: AxiosResponse = await axiosInstance.request({
+//           data: payload ?? param,
+//           signal: controllerRef.current.signal,
+//           method,
+//           url,
+//         });
 
-        setData(response.data);
-      } catch (error: any) {
-        setError(error);
-      } finally {
-        setLoading(false);
-        return { data, loading, error };
-      }
-    },
-    [data, error, loading, method, payload, url],
-  );
+//         setData(response.data);
+//       } catch (error: any) {
+//         setError(error);
+//       } finally {
+//         setLoading(false);
+//         return { data, loading, error };
+//       }
+//     },
+//     [data, error, loading, method, payload, url],
+//   );
 
-  useEffect(() => {
-    handleRequest();
-  }, [handleRequest, method, payload, url]);
+//   useEffect(() => {
+//     handleRequest();
+//   }, [handleRequest, method, payload, url]);
 
-  return { refetch: handleRequest, data, error, loading, cancel };
-};
+//   return { refetch: handleRequest, data, error, loading, cancel };
+// };
 
 const useLazyAxios = (
   url: string,
   method: string,
   payload?: object,
 ): IUseLazyAxios => {
-  const [data, setData] = useState(null);
-  const [error, setError] = useState(null);
+  const [data, setData] = useState<null | object>(null);
+  const [error, setError] = useState<null | string>(null);
   const [loading, setLoading] = useState(false);
 
   const renderRef = useRef(false);
@@ -95,14 +95,17 @@ const useLazyAxios = (
     controllerRef.current?.abort();
   };
 
-  const handleRequest = useCallback(
+  const handleRequest: THandleRequest = useCallback(
     async (param?: any) => {
-      let _data, _error, _loading;
+      let _data = null,
+        _error = null,
+        _loading = false;
       try {
         setLoading(true);
         _loading = true;
 
         const response: AxiosResponse = await axiosInstance.request({
+          params: method === 'GET' ? param : null,
           data: payload ?? param,
           signal: controllerRef.current.signal,
           method,
@@ -112,8 +115,8 @@ const useLazyAxios = (
         setData(response.data);
         _data = response.data;
       } catch (error: any) {
-        setError(error.message);
-        _error = error.message;
+        setError(getHTTPErrorMessage(error));
+        _error = getHTTPErrorMessage(error);
       } finally {
         setLoading(false);
         _loading = false;

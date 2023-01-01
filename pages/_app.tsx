@@ -5,12 +5,17 @@ import theme from '@chakra/theme';
 import store from '@redux/store';
 
 import '@styles/globals.css';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <Provider store={store}>
       <ChakraProvider theme={theme}>
-        <Component {...pageProps} />
+        <GoogleOAuthProvider
+          clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || ''}
+        >
+          <Component {...pageProps} />
+        </GoogleOAuthProvider>
       </ChakraProvider>
     </Provider>
   );
