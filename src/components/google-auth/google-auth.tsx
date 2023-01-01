@@ -8,8 +8,8 @@ type Props = {};
 
 const GoogleAuth = (props: Props) => {
   const [googleLogin, { loading }] = useLazyAxios('/auth/google-login/', 'GET');
+
   const handleResponse = async (response: TokenResponse) => {
-    console.log(response);
     const { data, error } = await googleLogin({ code: response.access_token });
 
     if (data) {

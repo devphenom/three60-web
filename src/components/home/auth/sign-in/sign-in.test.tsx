@@ -1,20 +1,14 @@
-import { GoogleOAuthProvider } from '@react-oauth/google';
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, screen } from '@testing-library/react';
 import { act } from 'react-dom/test-utils';
 import useLazyAxios from '@hooks/use-axios/use-axios';
 import SignIn from './sign-in';
+import { testMount } from '@utils/testMount';
 
 jest.mock('@hooks/use-axios/use-axios');
 
 const mockUseLazyAxios = useLazyAxios as jest.MockedFunction<
   typeof useLazyAxios
 >;
-
-const MockSignIn = () => (
-  <GoogleOAuthProvider clientId="abc">
-    <SignIn handleAuth={() => null} />
-  </GoogleOAuthProvider>
-);
 
 test('should render signin without crashing', () => {
   mockUseLazyAxios.mockReturnValue([
@@ -27,7 +21,7 @@ test('should render signin without crashing', () => {
     },
   ]);
 
-  render(<MockSignIn />);
+  testMount(<SignIn handleAuth={() => null} />);
 
   expect(screen.getByText(/Welcome Back/)).toBeInTheDocument();
 });
@@ -43,7 +37,7 @@ test('should render signin form', async () => {
     },
   ]);
 
-  render(<MockSignIn />);
+  testMount(<SignIn handleAuth={() => null} />);
 
   expect(screen.getByLabelText(/Username/)).toBeInTheDocument();
   expect(screen.getByPlaceholderText('********')).toBeInTheDocument();
@@ -62,7 +56,7 @@ test('should render a loading button', async () => {
     },
   ]);
 
-  render(<MockSignIn />);
+  testMount(<SignIn handleAuth={() => null} />);
 
   const usernameInput = screen.getByLabelText(/Username/);
   const passwordInput = screen.getByPlaceholderText('********');
@@ -105,7 +99,7 @@ test('should post to database', async () => {
       },
     ]);
 
-  render(<MockSignIn />);
+  testMount(<SignIn handleAuth={() => null} />);
 
   const submitButton = screen.getByTestId(/sign-in-button/);
 

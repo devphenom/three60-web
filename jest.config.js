@@ -27,6 +27,7 @@ const customJestConfig = {
     '^@global/(.*)$': '<rootDir>/src/components/global/$1',
     '^@redux/(.*)$': '<rootDir>/src/redux/$1',
     '^@hooks/(.*)$': '<rootDir>/src/hooks/$1',
+    '^@utils/(.*)$': '<rootDir>/src/utils/$1',
   },
 };
 
