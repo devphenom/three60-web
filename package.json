@@ -13,6 +13,7 @@
     "@chakra-ui/react": "^2.3.2",
     "@emotion/react": "^11.10.4",
     "@emotion/styled": "^11.10.4",
+    "@react-oauth/google": "^0.5.1",
     "@reduxjs/toolkit": "^1.8.6",
     "@testing-library/react-hooks": "^8.0.1",
     "axios": "^1.1.2",

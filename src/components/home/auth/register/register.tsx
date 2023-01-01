@@ -1,14 +1,17 @@
-import GoogleLogin from 'react-google-login';
+import { useDispatch } from 'react-redux';
 import { Formik, FormikValues } from 'formik';
-import { Box, Heading, HStack, Image, Stack, Text } from '@chakra-ui/react';
+import { Box, Heading, Text } from '@chakra-ui/react';
 
 import { Button } from '@global/button';
+import { authUser } from '@redux/features/user';
 import useToaster from '@hooks/use-toast/use-toast';
-import { useLazyAxios } from '@hooks/use-axios/use-axios';
 import FormInput from '@global/form-input/form-input';
+import useLazyAxios from '@hooks/use-axios/use-axios';
+import GoogleAuth from '@components/google-auth/google-auth';
 
 import { AuthProps } from '../types';
 import { SIGNUP_VALIDATION_SCHEMA } from '../formValidation';
+import { useRouter } from 'next/router';
 
 type RegisterProps = AuthProps;
 
@@ -16,20 +19,20 @@ const Register: React.FC<RegisterProps> = (props) => {
   const { handleAuth } = props;
 
   const toaster = useToaster();
-
+  const dispatch = useDispatch();
+  const router = useRouter();
   const [signUp, { loading }] = useLazyAxios('/auth/register', 'POST');
 
   const onSubmit = async (values: FormikValues) => {
     const { data, error } = await signUp(values);
 
     if (data) {
-      console.log('data');
-      toaster.success('An error occuredjjj');
+      dispatch(authUser(data));
+      router.push('/todos');
+      toaster.success('Signin successful.');
     }
-
     if (error) {
-      toaster.danger('An error occured');
-      console.log(error);
+      toaster.danger(error);
     }
   };
 
@@ -109,30 +112,11 @@ const Register: React.FC<RegisterProps> = (props) => {
                   type="submit"
                   w="full"
                   colorScheme="brand"
+                  data-testid="signup-button"
                 >
                   Sign Up
                 </Button>
-                <GoogleLogin
-                  clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || ''}
-                  onSuccess={(response) => console.log(response)}
-                  onFailure={(response) => console.log(response)}
-                  render={(renderProps) => (
-                    <Button
-                      mb={6}
-                      type="button"
-                      w="full"
-                      colorScheme="gray"
-                      color="brand.500"
-                    >
-                      <Image
-                        src={'/icons/google-icon.svg'}
-                        alt="google-icon"
-                        mr={5}
-                      />
-                      Sign in with Google
-                    </Button>
-                  )}
-                />
+                <GoogleAuth />
 
                 <Text>
                   Already have an account?{' '}

@@ -2318,6 +2318,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@react-oauth/google@npm:^0.5.1":
+  version: 0.5.1
+  resolution: "@react-oauth/google@npm:0.5.1"
+  peerDependencies:
+    react: ">=16.8.0"
+    react-dom: ">=16.8.0"
+  checksum: ab5c86f1eaca2fb31115c10a073e466d2703cd2df7df016497c889c8a487344606c949501fab42cd6b2d59e636c7c8290b05562404a11ec24936722f91a5f0ec
+  languageName: node
+  linkType: hard
+
 "@reduxjs/toolkit@npm:^1.8.6":
   version: 1.8.6
   resolution: "@reduxjs/toolkit@npm:1.8.6"
@@ -6288,6 +6298,7 @@ __metadata:
     "@chakra-ui/react": ^2.3.2
     "@emotion/react": ^11.10.4
     "@emotion/styled": ^11.10.4
+    "@react-oauth/google": ^0.5.1
     "@reduxjs/toolkit": ^1.8.6
     "@testing-library/jest-dom": ^5.16.5
     "@testing-library/react": ^13.4.0
