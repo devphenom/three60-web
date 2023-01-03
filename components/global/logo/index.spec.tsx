@@ -1,9 +1,8 @@
-import mount from '@test/mount';
-
+import { testMount } from '@utils/testMount';
 import { Logo } from './index';
 
-describe('Logo component testing with enzyme', () => {
-  const component = mount(<Logo />);
+describe('should render without crashing', () => {
+  const component = testMount(<Logo />);
 
   it('renders without crashing', () => {
     expect(component).toBeTruthy();

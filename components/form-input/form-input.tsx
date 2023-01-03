@@ -18,6 +18,8 @@ interface IFormInput {
   value: any;
   onChange: ChangeEventHandler<HTMLInputElement>;
   type?: string;
+  borderTopRightRadius?: string;
+  borderBottomRightRadius?: string;
 }
 
 const StylednInput = styled(Input)`
