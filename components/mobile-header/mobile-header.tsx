@@ -1,4 +1,4 @@
-import { CloseIcon, HamburgerIcon } from '@chakra-ui/icons';
+import { CloseIcon, HamburgerIcon, Search2Icon } from '@chakra-ui/icons';
 import {
   Box,
   Container,
@@ -10,21 +10,33 @@ import {
   Flex,
   IconButton,
   Image,
+  Input,
+  InputGroup,
+  InputLeftAddon,
   ListItem,
   UnorderedList,
   useDisclosure,
 } from '@chakra-ui/react';
 import { NAV_ITEMS } from '@utils/navItems';
-import { NavLink } from '@global';
+import { Logo, NavLink } from '@global';
 
-type Props = {};
+type Props = {
+  value: string;
+  handleChange: (e: React.FormEvent<HTMLInputElement>) => void;
+};
 
-const MobileHeader = (props: Props) => {
+const MobileHeader = ({ value, handleChange }: Props) => {
   const { onClose, isOpen, onOpen } = useDisclosure();
+
   return (
-    <Container width="100%" p={3} boxShadow="0px 0px 4px rgba(0, 0, 0, 0.1);">
-      <Flex justify={'space-between'}>
-        <Image src={'/icons/logo-sm.svg'} alt="three60 logo" />
+    <Container
+      width="100%"
+      p={4}
+      boxShadow="0px 0px 4px rgba(0, 0, 0, 0.1);"
+      bg="whiteAlpha.900"
+    >
+      <Flex justify={'space-between'} align="center">
+        <Logo />
         <IconButton
           onClick={onOpen}
           aria-label="hamburger icon"
@@ -68,6 +80,25 @@ const MobileHeader = (props: Props) => {
                   </ListItem>
                 ))}
               </UnorderedList>
+
+              <InputGroup px={4}>
+                <InputLeftAddon
+                  borderTopLeftRadius={'50px'}
+                  borderBottomLeftRadius="50px"
+                  color="blackAlpha.500"
+                  pointerEvents={'none'}
+                >
+                  <Search2Icon />
+                </InputLeftAddon>
+                <Input
+                  name="search"
+                  value={value}
+                  onChange={handleChange}
+                  borderTopRightRadius="50px"
+                  borderBottomRightRadius="50px"
+                  placeholder="search terms"
+                />
+              </InputGroup>
             </Box>
           </DrawerBody>
         </DrawerContent>

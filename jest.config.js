@@ -14,21 +14,28 @@ const customJestConfig = {
   // if using TypeScript with a baseUrl set to the root directory then you need the below for alias' to work
   moduleDirectories: ['node_modules', '<rootDir>/'],
   testPathIgnorePatterns: [
-    '<rootDir>/old/',
-    '<rootDir>/src/components/global/examples/',
+    '<rootDir>/old/*',
+    '<rootDir>/src/components/global/examples/*',
   ],
   testEnvironment: 'jest-environment-jsdom',
-  setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
+  setupFilesAfterEnv: [
+    '<rootDir>/__mocks__/before.ts',
+    '<rootDir>/jest.setup.ts',
+  ],
   moduleNameMapper: {
     axios: '<rootDir>/node_modules/axios/dist/node/axios.cjs',
     '^@chakra/(.*)$': '<rootDir>/chakra/$1',
     '^@styles/(.*)$': '<rootDir>/styles/$1',
     '^@components/(.*)$': '<rootDir>/components/$1',
+    '^@components(.*)$': '<rootDir>/components',
     '^@global/(.*)$': '<rootDir>/components/global/$1',
+    '^@global(.*)$': '<rootDir>/components/global',
     '^@redux/(.*)$': '<rootDir>/redux/$1',
     '^@hooks/(.*)$': '<rootDir>/hooks/$1',
+    '^@hooks(.*)$': '<rootDir>/hooks',
     '^@utils/(.*)$': '<rootDir>/utils/$1',
     '^@icons/(.*)$': '<rootDir>/icons/$1',
+    '^@icons(.*)$': '<rootDir>/icons$1',
   },
 };
 

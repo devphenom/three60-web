@@ -2,12 +2,12 @@ import {
   FormControl,
   FormErrorMessage,
   FormLabel,
-  Input,
+  Textarea,
 } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 import React, { ChangeEventHandler } from 'react';
 
-interface IFormInput {
+interface IFormTextarea {
   label?: string;
   isInvalid?: boolean;
   validationMessage?: any;
@@ -16,13 +16,14 @@ interface IFormInput {
   name: string;
   placeholder?: string;
   value: any;
-  onChange: ChangeEventHandler<HTMLInputElement>;
+  onChange: ChangeEventHandler<HTMLTextAreaElement>;
   type?: string;
   borderTopRightRadius?: string;
   borderBottomRightRadius?: string;
+  size?: string;
 }
 
-const StylednInput = styled(Input)`
+const StyledTextarea = styled(Textarea)`
   box-shadow: none;
   border-radius: 3px;
   border-top-left-radius: ${(props) => props.borderTopLeftRadius || '3px'};
@@ -43,12 +44,12 @@ const StylednInput = styled(Input)`
   }
 `;
 
-const FormInput: React.FC<IFormInput> = (props) => {
+const FormTextarea: React.FC<IFormTextarea> = (props) => {
   const { label, isInvalid, validationMessage, mb, ...rest } = props;
   return (
     <FormControl mb={mb || 4} color="var(--form-label)" isInvalid={isInvalid}>
       {label && <FormLabel fontWeight="400"> {label} </FormLabel>}
-      <StylednInput {...rest} w="full" />
+      <StyledTextarea {...rest} w="full" />
       {isInvalid && (
         <FormErrorMessage fontWeight={300}>
           {' '}
@@ -59,4 +60,4 @@ const FormInput: React.FC<IFormInput> = (props) => {
   );
 };
 
-export default FormInput;
+export default FormTextarea;
