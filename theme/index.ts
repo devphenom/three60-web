@@ -31,7 +31,7 @@ const theme = extendTheme(
   overrides,
   withDefaultVariant({
     variant: 'filled',
-    components: ['Input', 'Select'],
+    components: ['Input', 'Select', 'Textarea'],
   }),
 );
 

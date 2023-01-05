@@ -29,7 +29,12 @@ const MobileHeader = ({ value, handleChange }: Props) => {
   const { onClose, isOpen, onOpen } = useDisclosure();
 
   return (
-    <Container width="100%" p={3} boxShadow="0px 0px 4px rgba(0, 0, 0, 0.1);">
+    <Container
+      width="100%"
+      p={4}
+      boxShadow="0px 0px 4px rgba(0, 0, 0, 0.1);"
+      bg="whiteAlpha.900"
+    >
       <Flex justify={'space-between'} align="center">
         <Logo />
         <IconButton

@@ -7,7 +7,7 @@ import { TokenResponse, useGoogleLogin } from '@react-oauth/google';
 type Props = {};
 
 const GoogleAuth = (props: Props) => {
-  const [googleLogin, { loading }] = useLazyAxios('/auth/google-login/', 'GET');
+  const [googleLogin, { loading }] = useLazyAxios('/auth/google-login', 'POST');
 
   const handleResponse = async (response: TokenResponse) => {
     const { data, error } = await googleLogin({ code: response.access_token });
