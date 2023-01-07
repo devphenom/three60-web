@@ -20,6 +20,13 @@ const StyledAnchorTag = styled.a`
     background-color: rgba(70, 115, 228, 0.08);
     color: var(--brand-500);
   }
+
+  @media screen and (min-width: 768px) {
+    &.active {
+      background-color: inherit;
+      border-bottom: 2px solid var(--brand-500);
+    }
+  }
 `;
 
 export const NavLink = ({
@@ -29,18 +36,19 @@ export const NavLink = ({
   className,
   ...rest
 }: Props) => {
-  const { pathname } = useRouter();
+  const router = useRouter();
 
-  const isActive = exact ? pathname === href : pathname.startsWith(href);
+  const isActive = exact
+    ? router?.pathname === href
+    : router?.pathname.startsWith(href);
 
   if (isActive) {
-    console.log(isActive);
     className += ' active';
   }
 
   return (
     <NextLink href={href}>
-      <StyledAnchorTag className={className} {...rest}>
+      <StyledAnchorTag data-testid="nav-link" className={className} {...rest}>
         {children}
       </StyledAnchorTag>
     </NextLink>
