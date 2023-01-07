@@ -1,5 +1,5 @@
 import { Box, HStack } from '@chakra-ui/react';
-import { Formik } from 'formik';
+import { Formik, FormikValues } from 'formik';
 import React from 'react';
 import { FormInput, FormTextarea } from '@components';
 import { Button } from '@global';
@@ -7,15 +7,18 @@ import { TODO_FORM_VALIDATION_SCHEMA } from './todo-formValidation';
 
 type Props = {
   onClose: () => void;
+  onSubmit: (x: FormikValues) => void;
+  isLoading: boolean;
+  onCancel: () => void;
 };
 
-const TodoForm = ({ onClose }: Props) => {
+const TodoForm = ({ onClose, isLoading, onSubmit, onCancel }: Props) => {
   return (
     <Formik
       enableReinitialize
       validationSchema={TODO_FORM_VALIDATION_SCHEMA}
       initialValues={{ title: '', description: '' }}
-      onSubmit={(values) => console.log(values)}
+      onSubmit={onSubmit}
     >
       {({ values, handleChange, errors, touched, handleSubmit }) => {
         return (
@@ -42,7 +45,10 @@ const TodoForm = ({ onClose }: Props) => {
 
               <HStack justify={'space-between'} my="5">
                 <Button
-                  onClick={onClose}
+                  onClick={() => {
+                    onClose();
+                    onCancel();
+                  }}
                   colorScheme="gray"
                   variant="outline"
                   borderRadius="999px"
@@ -50,6 +56,7 @@ const TodoForm = ({ onClose }: Props) => {
                   Cancel
                 </Button>
                 <Button
+                  isLoading={isLoading}
                   borderRadius="999px"
                   colorScheme={'brand'}
                   type="submit"

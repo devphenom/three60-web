@@ -1,6 +1,8 @@
+import { THREE60_AUTH_TOKEN } from './../../utils/constants';
 import axios, { AxiosResponse } from 'axios';
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { getHTTPErrorMessage } from '../../utils/functions';
+import clientStorage from '@utils/clientStorage';
+import { getHTTPErrorMessage } from '@utils/functions';
 
 // Axios Instance
 const axiosInstance = axios.create({
@@ -8,6 +10,7 @@ const axiosInstance = axios.create({
   headers: {
     Accept: 'application/json',
     'Content-Type': 'application/json',
+    Authorization: `Bearer ${clientStorage.getItem(THREE60_AUTH_TOKEN)}`,
   },
 });
 
