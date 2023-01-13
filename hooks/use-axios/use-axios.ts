@@ -10,7 +10,7 @@ const axiosInstance = axios.create({
   headers: {
     Accept: 'application/json',
     'Content-Type': 'application/json',
-    Authorization: `Bearer ${clientStorage.getItem(THREE60_AUTH_TOKEN)}`,
+    // Authorization: `Bearer ${clientStorage.getItem(THREE60_AUTH_TOKEN)}`,
   },
 });
 

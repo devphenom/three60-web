@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Box, Text } from '@chakra-ui/react';
 
 import { Header } from '@global';
@@ -6,6 +6,7 @@ import { Header } from '@global';
 import CreateTodo from './create-todo/create-todo';
 import TodoNavbar from './todo-navbar/todo-navbar';
 import TodosListing from './todos-listing/todos-listing';
+import { useDispatch } from 'react-redux';
 
 type Props = {};
 
@@ -43,12 +44,20 @@ export const TODO_OPTIONS = [
 ];
 
 const Todos = (props: Props) => {
+  const dispatch = useDispatch();
   const [navCurrentState, setNavCurrentState] = useState(TODO_OPTIONS[0]);
   const updateNavCurrentState = (val: {
     id: number;
     name: string;
     value: number;
   }) => setNavCurrentState(val);
+
+  useEffect(() => {
+    // dispatch();
+
+    return () => {};
+  }, []);
+
   return (
     <Box overflow={'hidden'} bg="var(--brand-bg)">
       <Header />
