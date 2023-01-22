@@ -16,22 +16,24 @@
     "incremental": true,
     "baseUrl": "./",
     "paths": {
-      "@chakra/*": ["src/chakra/*"],
-      "@chakra": ["src/chakra"],
+      "@chakra/*": ["chakra/*"],
+      "@chakra": ["chakra"],
       "@styles/*": ["styles/*"],
       "@styles": ["styles"],
-      "@components/*": ["src/components/*"],
-      "@components": ["src/components"],
-      "@global": ["src/components/global"],
-      "@global/*": ["src/components/global/*"],
-      "@redux": ["src/redux"],
-      "@redux/*": ["src/redux/*"],
-      "@hooks": ["src/hooks"],
-      "@hooks/*": ["src/hooks/*"],
-      "@utils": ["src/utils"],
-      "@utils/*": ["src/utils/*"]
+      "@components/*": ["components/*"],
+      "@components": ["components"],
+      "@global": ["components/global"],
+      "@global/*": ["components/global/*"],
+      "@redux": ["redux"],
+      "@redux/*": ["redux/*"],
+      "@hooks": ["hooks"],
+      "@hooks/*": ["hooks/*"],
+      "@utils": ["utils"],
+      "@utils/*": ["utils/*"],
+      "@icons": ["icons"],
+      "@icons/*": ["icons/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src", "theme"],
   "exclude": ["node_modules"]
 }

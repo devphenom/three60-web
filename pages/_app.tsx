@@ -2,7 +2,7 @@ import { Provider } from 'react-redux';
 import type { AppProps } from 'next/app';
 import { ChakraProvider } from '@chakra-ui/react';
 import { GoogleOAuthProvider } from '@react-oauth/google';
-import theme from '@chakra/theme';
+import theme from 'theme';
 import store from '@redux/store';
 
 import '@styles/globals.css';
