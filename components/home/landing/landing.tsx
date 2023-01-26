@@ -1,5 +1,5 @@
 import React from 'react';
-import { HomeIconsProps } from 'src/types';
+import { HomeIconsProps } from 'types';
 import { Box, Flex, Heading, HStack, Text, VStack } from '@chakra-ui/react';
 import Image from 'next/image';
 
