@@ -3,20 +3,29 @@ import { Button } from '@global/button';
 import { Image } from '@chakra-ui/react';
 import useLazyAxios from '@hooks/use-axios/use-axios';
 import { TokenResponse, useGoogleLogin } from '@react-oauth/google';
+import useToaster from '../../hooks/use-toast/use-toast';
+import { authUser } from '../../redux/features/user';
+import { useDispatch } from 'react-redux';
+import { useRouter } from 'next/router';
 
 type Props = {};
 
 const GoogleAuth = (props: Props) => {
+  const toaster = useToaster();
+  const router = useRouter();
+  const dispatch = useDispatch();
   const [googleLogin, { loading }] = useLazyAxios('/auth/google-login', 'POST');
 
   const handleResponse = async (response: TokenResponse) => {
     const { data, error } = await googleLogin({ code: response.access_token });
 
     if (data) {
-      console.log(data);
+      dispatch(authUser(data));
+      router.push('/todos');
+      toaster.success('Signin Successful.');
     }
     if (error) {
-      console.log(error);
+      toaster.danger(error);
     }
   };
 
