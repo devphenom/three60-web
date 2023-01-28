@@ -7,7 +7,7 @@ import CreateTodo from './create-todo/create-todo';
 import TodoNavbar from './todo-navbar/todo-navbar';
 import TodosListing from './todos-listing/todos-listing';
 import { getAllTodosAction } from '../../redux/features/todos';
-import { useAppDispatch } from '../../redux/hooks';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 
 type Props = {};
 
@@ -55,6 +55,8 @@ const Todos = (props: Props) => {
     value: number;
   }) => setNavCurrentState(val);
 
+  const { allTodos } = useAppSelector((state) => state.todo);
+
   useEffect(() => {
     dispatch(getAllTodosAction());
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -72,7 +74,7 @@ const Todos = (props: Props) => {
       <Box p={6}>
         <Text>{navCurrentState.name}</Text>
 
-        <TodosListing />
+        <TodosListing data={allTodos} />
       </Box>
     </Box>
   );

@@ -1,3 +1,4 @@
+import { ApiStatus } from './../types';
 export const getHTTPErrorMessage = (error: any): string => {
   if (error?.response) {
     /* The request was made
@@ -18,5 +19,7 @@ export const getHTTPErrorMessage = (error: any): string => {
     // The request was made but no response was received
     return 'Something went wrong';
   }
-  return 'Hello world';
+  return '';
 };
+
+export const isLoading = (value: any) => value === ApiStatus.loading;

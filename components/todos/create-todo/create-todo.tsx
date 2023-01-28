@@ -1,9 +1,6 @@
 import { FormikValues } from 'formik';
-import { useDispatch } from 'react-redux';
 import {
-  Box,
   Container,
-  HStack,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -16,34 +13,25 @@ import React from 'react';
 
 import { AddIcon } from '@icons';
 import { Button } from '@global';
-import { useLazyAxios, useToaster } from '@hooks';
+import { isLoading } from '@utils/functions';
+import { useAppDispatch, useAppSelector } from '@redux/hooks';
 
 import TodoForm from '../todo-form/todo-form';
+import { postTodoAction } from '@redux/features/todos';
 
 type Props = {};
 
 const CreateTodo = (props: Props) => {
-  const toaster = useToaster();
-  // const dispatch = useDispatch();
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const dispatch = useAppDispatch();
 
-  const [createTodo, { loading, cancel }] = useLazyAxios(
-    '/todo/create/',
-    'POST',
-  );
+  const { postTodoStatus } = useAppSelector((state) => state.todo);
 
   const onSubmit = async (values: FormikValues) => {
-    const { data, error } = await createTodo(values);
-
-    if (data) {
-      // dispatch();
-      toaster.success('Todo created successfully');
-      onClose();
-    }
-    if (error) {
-      toaster.danger(error);
-    }
+    await dispatch(postTodoAction(values));
+    onClose();
   };
+
   return (
     <>
       <Container py={4} px={6}>
@@ -67,10 +55,9 @@ const CreateTodo = (props: Props) => {
           <ModalCloseButton />
           <ModalBody>
             <TodoForm
-              isLoading={loading}
               onSubmit={onSubmit}
               onClose={onClose}
-              onCancel={cancel}
+              isLoading={isLoading(postTodoStatus)}
             />
           </ModalBody>
         </ModalContent>

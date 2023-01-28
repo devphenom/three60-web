@@ -8,8 +8,8 @@ import { TODO_FORM_VALIDATION_SCHEMA } from '../todo-services/todo-formValidatio
 type Props = {
   onClose: () => void;
   onSubmit: (x: FormikValues) => void;
-  isLoading: boolean;
-  onCancel: () => void;
+  isLoading?: boolean;
+  onCancel?: () => void;
 };
 
 const TodoForm = ({ onClose, isLoading, onSubmit, onCancel }: Props) => {
@@ -47,7 +47,7 @@ const TodoForm = ({ onClose, isLoading, onSubmit, onCancel }: Props) => {
                 <Button
                   onClick={() => {
                     onClose();
-                    onCancel();
+                    onCancel?.();
                   }}
                   colorScheme="gray"
                   variant="outline"

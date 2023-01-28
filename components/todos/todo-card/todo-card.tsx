@@ -13,7 +13,9 @@ import React from 'react';
 import { Button } from '@global';
 import { DeleteIcon, EditIcon, EllipsesIcon, MarkCompleteIcon } from '@icons';
 
-type Props = {};
+import { ITodo } from '../todo-services/types';
+
+type Props = { item: ITodo };
 
 const menuItemProps = {
   p: 6,
@@ -23,7 +25,7 @@ const menuItemProps = {
   iconSpacing: 4,
 };
 
-const TodoCard = (props: Props) => {
+const TodoCard = ({ item }: Props) => {
   return (
     <Container
       boxShadow="0px 1px 4px rgba(0, 0, 0, 0.1)"
@@ -32,7 +34,7 @@ const TodoCard = (props: Props) => {
       borderRadius={5}
     >
       <Heading as="h6" fontSize="md" fontWeight="400" data-testid="heading">
-        Create an endpoint to get the list of users available in the database
+        {item?.title}
       </Heading>
       <Text
         my={2}
@@ -40,7 +42,7 @@ const TodoCard = (props: Props) => {
         color="blackAlpha.500"
         data-testid="date-created"
       >
-        Created on 13 July 2019 at 08:33AM
+        {item?.created}
       </Text>
       <Flex justify={'space-between'}>
         <Menu>
@@ -51,7 +53,7 @@ const TodoCard = (props: Props) => {
             borderRadius={'100px'}
             minW="97px"
           >
-            Finished
+            {item?.status}
           </MenuButton>
           <MenuList>
             <MenuItem>In Progress</MenuItem>
@@ -83,51 +85,6 @@ const TodoCard = (props: Props) => {
         </Menu>
       </Flex>
     </Container>
-
-    // <Container
-    //   boxShadow="0px 1px 4px rgba(0, 0, 0, 0.1)"
-    //   p={3}
-    //   bg="white"
-    //   borderRadius={5}
-    // >
-    //   <Heading as="h6" fontSize="md" fontWeight="400">
-    //     Create an endpoint to get the list of users available in the database
-    //   </Heading>
-    //   <Text my={2} fontSize={'10px'} color="blackAlpha.500">
-    //     Created on 13 July 2019 at 08:33AM
-    //   </Text>
-    //   <Flex justify={'space-between'}>
-    //     <Menu>
-    //       <MenuButton
-    //         as={Button}
-    //         colorScheme="secondary"
-    //         variant="ghost"
-    //         borderRadius={'100px'}
-    //         minW="97px"
-    //       >
-    //         Finished
-    //       </MenuButton>
-    //       <MenuList>
-    //         <MenuItem>In Progress</MenuItem>
-    //         <MenuItem>Overdue</MenuItem>
-    //         <MenuItem>Complete</MenuItem>
-    //         <MenuItem>Trash</MenuItem>
-    //       </MenuList>
-    //     </Menu>
-
-    //     <Menu>
-    //       <MenuButton>
-    //         <EllipsesIcon />
-    //       </MenuButton>
-    //       <MenuList>
-    //         <MenuItem>Overdue</MenuItem>
-    //         <MenuItem>In Progress</MenuItem>
-    //         <MenuItem>Complete</MenuItem>
-    //         <MenuItem>Trash</MenuItem>
-    //       </MenuList>
-    //     </Menu>
-    //   </Flex>
-    // </Container>
   );
 };
 
