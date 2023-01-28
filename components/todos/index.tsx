@@ -6,7 +6,8 @@ import { Header } from '@global';
 import CreateTodo from './create-todo/create-todo';
 import TodoNavbar from './todo-navbar/todo-navbar';
 import TodosListing from './todos-listing/todos-listing';
-import { useDispatch } from 'react-redux';
+import { getAllTodosAction } from '../../redux/features/todos';
+import { useAppDispatch } from '../../redux/hooks';
 
 type Props = {};
 
@@ -44,8 +45,10 @@ export const TODO_OPTIONS = [
 ];
 
 const Todos = (props: Props) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
+
   const [navCurrentState, setNavCurrentState] = useState(TODO_OPTIONS[0]);
+
   const updateNavCurrentState = (val: {
     id: number;
     name: string;
@@ -53,9 +56,8 @@ const Todos = (props: Props) => {
   }) => setNavCurrentState(val);
 
   useEffect(() => {
-    // dispatch();
-
-    return () => {};
+    dispatch(getAllTodosAction());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
