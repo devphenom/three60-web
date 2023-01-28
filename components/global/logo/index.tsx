@@ -1,4 +1,5 @@
-import { Box, Flex, Text } from '@chakra-ui/react';
+import { Flex } from '@chakra-ui/react';
+import Link from 'next/link';
 import React, { SVGProps } from 'react';
 
 interface ILogoProps {
@@ -17,6 +18,7 @@ const LogoIconSm = (props: SVGProps<SVGSVGElement>) => {
       aria-hidden="true"
       data-icon="three60 logo"
       data-testid="logo"
+      cursor={'pointer'}
       {...props}
     >
       <path
@@ -29,7 +31,7 @@ const LogoIconSm = (props: SVGProps<SVGSVGElement>) => {
 
 const LogoIconFull = (props: SVGProps<SVGSVGElement>) => {
   return (
-    <Flex align="center" gap="5px">
+    <Flex align="center" gap="5px" cursor={'pointer'}>
       <svg
         width="50"
         height="50"
@@ -93,8 +95,16 @@ const LogoIconFull = (props: SVGProps<SVGSVGElement>) => {
 
 export const Logo: React.FC<ILogoProps> = ({ full }: ILogoProps) => {
   if (full) {
-    return <LogoIconFull />;
+    return (
+      <Link href="/">
+        <LogoIconFull />
+      </Link>
+    );
   }
 
-  return <LogoIconSm />;
+  return (
+    <Link href="/">
+      <LogoIconSm />
+    </Link>
+  );
 };

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Box, Text } from '@chakra-ui/react';
 
 import { Header } from '@global';
@@ -6,6 +6,8 @@ import { Header } from '@global';
 import CreateTodo from './create-todo/create-todo';
 import TodoNavbar from './todo-navbar/todo-navbar';
 import TodosListing from './todos-listing/todos-listing';
+import { getAllTodosAction } from '../../redux/features/todos';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 
 type Props = {};
 
@@ -43,12 +45,23 @@ export const TODO_OPTIONS = [
 ];
 
 const Todos = (props: Props) => {
+  const dispatch = useAppDispatch();
+
   const [navCurrentState, setNavCurrentState] = useState(TODO_OPTIONS[0]);
+
   const updateNavCurrentState = (val: {
     id: number;
     name: string;
     value: number;
   }) => setNavCurrentState(val);
+
+  const { allTodos } = useAppSelector((state) => state.todo);
+
+  useEffect(() => {
+    dispatch(getAllTodosAction());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <Box overflow={'hidden'} bg="var(--brand-bg)">
       <Header />
@@ -61,7 +74,7 @@ const Todos = (props: Props) => {
       <Box p={6}>
         <Text>{navCurrentState.name}</Text>
 
-        <TodosListing />
+        <TodosListing data={allTodos} />
       </Box>
     </Box>
   );

@@ -1,7 +1,6 @@
+import { FormikValues } from 'formik';
 import {
-  Box,
   Container,
-  HStack,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -14,13 +13,25 @@ import React from 'react';
 
 import { AddIcon } from '@icons';
 import { Button } from '@global';
+import { isLoading } from '@utils/functions';
+import { useAppDispatch, useAppSelector } from '@redux/hooks';
 
 import TodoForm from '../todo-form/todo-form';
+import { postTodoAction } from '@redux/features/todos';
 
 type Props = {};
 
 const CreateTodo = (props: Props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const dispatch = useAppDispatch();
+
+  const { postTodoStatus } = useAppSelector((state) => state.todo);
+
+  const onSubmit = async (values: FormikValues) => {
+    await dispatch(postTodoAction(values));
+    onClose();
+  };
+
   return (
     <>
       <Container py={4} px={6}>
@@ -43,7 +54,11 @@ const CreateTodo = (props: Props) => {
           <ModalHeader>Create Todo</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <TodoForm onClose={onClose} />
+            <TodoForm
+              onSubmit={onSubmit}
+              onClose={onClose}
+              isLoading={isLoading(postTodoStatus)}
+            />
           </ModalBody>
         </ModalContent>
       </Modal>
