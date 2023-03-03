@@ -17,7 +17,7 @@ import { isLoading } from '@utils/functions';
 import { useAppDispatch, useAppSelector } from '@redux/hooks';
 
 import TodoForm from '../todo-form/todo-form';
-import { postTodoAction } from '@redux/features/todos';
+import { postTodoAction } from '@redux/features/todo/todo-actions';
 
 type Props = {};
 

@@ -1,5 +1,7 @@
+import { NextResponse } from 'next/server';
 import clientStorage from './clientStorage';
 import { THREE60_AUTH_TOKEN, THREE60_AUTH_USER } from './constants';
+import { parseJwt } from './functions';
 
 export const setIsAuth = (token: string) => {
   if (token) {
@@ -22,7 +24,21 @@ export const setAuthUser = (user: {
   }
 };
 
+export const isAuth = async (token: string) => {
+  if (!!token.length) {
+    const { exp: expiry } = await parseJwt(token);
+    if (new Date(expiry * 100) < new Date()) {
+      // return NextResponse.rewrite('http://localhost:3000/');
+    }
+    return true;
+  }
+
+  return false;
+};
+
 export const handleLogout = () => {
   clientStorage.removeItem(THREE60_AUTH_USER);
   clientStorage.removeItem(THREE60_AUTH_TOKEN);
 };
+
+export const tokenVar = () => clientStorage.getItem(THREE60_AUTH_TOKEN);

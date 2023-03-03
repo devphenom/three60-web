@@ -1,6 +1,6 @@
 import { Action, configureStore, ThunkAction } from '@reduxjs/toolkit';
 import userReducer from '@redux/features/user';
-import todoReducer from '@redux/features/todos';
+import todoReducer from '@redux/features/todo/todo-slice';
 
 const store = configureStore({
   reducer: {
