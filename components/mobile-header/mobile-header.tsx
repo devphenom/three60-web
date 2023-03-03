@@ -108,7 +108,3 @@ const MobileHeader = ({ value, handleChange }: Props) => {
 };
 
 export default MobileHeader;
-
-// 840 g3 ---- 170 --33
-
-// 160+33
