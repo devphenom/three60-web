@@ -1,7 +1,9 @@
+import Router from 'next/router';
 import { NextResponse } from 'next/server';
 import clientStorage from './clientStorage';
 import { THREE60_AUTH_TOKEN, THREE60_AUTH_USER } from './constants';
 import { parseJwt } from './functions';
+import toaster from '@utils/toast';
 
 export const setIsAuth = (token: string) => {
   if (token) {
@@ -24,11 +26,15 @@ export const setAuthUser = (user: {
   }
 };
 
-export const isAuth = async (token: string) => {
-  if (!!token.length) {
+export const isAuth = async () => {
+  const token = tokenVar();
+  if (!!token) {
     const { exp: expiry } = await parseJwt(token);
+
     if (new Date(expiry * 100) < new Date()) {
-      // return NextResponse.rewrite('http://localhost:3000/');
+      // toaster.danger('Session Expired');
+      Router.push('/');
+      return false;
     }
     return true;
   }

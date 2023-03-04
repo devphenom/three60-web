@@ -4,10 +4,10 @@ import {
   postTodo,
 } from '@components/todos/todo-services/todo-api';
 import { FormikValues } from 'formik';
-import { getHTTPErrorMessage } from '@utils/functions';
+
 import { isAuth } from '@utils/auth';
-import clientStorage from '@utils/clientStorage';
-import { THREE60_AUTH_TOKEN } from '../../../utils/constants';
+import { getHTTPErrorMessage } from '@utils/functions';
+import { ITodo } from '@components/todos/todo-services/types';
 
 export const getAllTodosAction = createAsyncThunk(
   'todos/fetchTodosAction',
@@ -18,17 +18,16 @@ export const getAllTodosAction = createAsyncThunk(
   },
 );
 
-export const postTodoAction = createAsyncThunk(
+export const postTodoAction = createAsyncThunk<ITodo, { rejectValue: string }>(
   'todo/postTodoAction',
   async (data: FormikValues, { rejectWithValue }) => {
+    const _isAuth = await isAuth();
+    if (!_isAuth) {
+      return rejectWithValue('Session Expired');
+    }
     try {
-      const _isAuth = await isAuth(
-        clientStorage.getItem(THREE60_AUTH_TOKEN) || '',
-      );
-      if (_isAuth) {
-        const response = await postTodo(data);
-        return response.data;
-      }
+      const response = await postTodo(data);
+      return response.data;
     } catch (error) {
       return rejectWithValue(getHTTPErrorMessage(error));
     }

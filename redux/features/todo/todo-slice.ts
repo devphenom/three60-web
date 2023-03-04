@@ -34,8 +34,10 @@ const todoSlice = createSlice({
     });
     builder.addCase(postTodoAction.rejected, (state, action) => {
       state.postTodoStatus = ApiStatus.error;
-      state.postTodoError = action.error;
-      toaster.danger(action.error.message);
+      if (action.payload) {
+        state.postTodoError = action.payload;
+        toaster.danger(action.payload);
+      }
     });
     builder.addCase(postTodoAction.fulfilled, (state, action) => {
       state.postTodoStatus = ApiStatus.success;
