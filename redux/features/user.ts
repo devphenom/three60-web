@@ -15,8 +15,7 @@ const authUserSlice = createSlice({
   reducers: {
     authUser: (state, action) => {
       setAuthUser(action.payload);
-      // TODO: change access token to access_token
-      setIsAuth(action.payload['access token']);
+      setIsAuth(action.payload.access_token);
       state = action.payload;
     },
     logout: (state) => {

@@ -9,6 +9,7 @@ const initialState: ITodoState = {
   getAllTodoStatus: ApiStatus.idle,
   postTodoStatus: ApiStatus.idle,
   postTodoError: null,
+  todoCounts: null,
 };
 
 const todoSlice = createSlice({
@@ -25,7 +26,8 @@ const todoSlice = createSlice({
     });
     builder.addCase(getAllTodosAction.fulfilled, (state, action) => {
       state.getAllTodoStatus = ApiStatus.success;
-      state.allTodos = action.payload;
+      state.allTodos = action.payload.results;
+      state.todoCounts = action.payload.counts;
     });
 
     // post todo
@@ -36,7 +38,6 @@ const todoSlice = createSlice({
       state.postTodoStatus = ApiStatus.error;
       if (action.payload) {
         state.postTodoError = action.payload;
-        toaster.danger(action.payload);
       }
     });
     builder.addCase(postTodoAction.fulfilled, (state, action) => {

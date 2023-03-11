@@ -24,9 +24,16 @@ export interface ITodo {
   updated: string;
 }
 
+export interface ITodoCount {
+  id: number;
+  title: string;
+  value: number;
+}
+
 export interface ITodoState {
   allTodos: ITodo[];
   getAllTodoStatus: ApiStatus;
   postTodoStatus: ApiStatus;
   postTodoError: null | SerializedError;
+  todoCounts: null | ITodoCount[];
 }

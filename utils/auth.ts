@@ -26,17 +26,18 @@ export const setAuthUser = (user: {
   }
 };
 
+export const tokenVar = () => clientStorage.getItem(THREE60_AUTH_TOKEN);
+
 export const isAuth = async () => {
   const token = tokenVar();
   if (!!token) {
     const { exp: expiry } = await parseJwt(token);
-
-    if (new Date(expiry * 100) < new Date()) {
-      // toaster.danger('Session Expired');
+    if (new Date(expiry * 1000) < new Date()) {
       Router.push('/');
       return false;
+    } else {
+      return true;
     }
-    return true;
   }
 
   return false;
@@ -46,5 +47,3 @@ export const handleLogout = () => {
   clientStorage.removeItem(THREE60_AUTH_USER);
   clientStorage.removeItem(THREE60_AUTH_TOKEN);
 };
-
-export const tokenVar = () => clientStorage.getItem(THREE60_AUTH_TOKEN);

@@ -1,15 +1,13 @@
 import { Box, Circle, Flex, Stack, StackItem } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 import React from 'react';
-import { TODO_OPTIONS } from '..';
+import { useAppSelector } from '../../../redux/hooks';
+import { toSentence } from '../../../utils/functions';
+import { ITodoCount } from '@components/todos/todo-services/types';
 
 type Props = {
   currentState: { id: number; name: string; value: number };
-  updateCurrentState: (val: {
-    id: number;
-    name: string;
-    value: number;
-  }) => void;
+  updateCurrentState: (val: ITodoCount) => void;
 };
 
 const StyledFlex = styled(Flex)`
@@ -23,6 +21,8 @@ const StyledFlex = styled(Flex)`
 `;
 
 const TodoNavbar = ({ currentState, updateCurrentState }: Props) => {
+  const { todoCounts } = useAppSelector((state) => state.todo);
+
   return (
     <Box
       bg="white"
@@ -36,7 +36,7 @@ const TodoNavbar = ({ currentState, updateCurrentState }: Props) => {
         height="66px"
         overflow={'scroll'}
       >
-        {TODO_OPTIONS.map((option) => (
+        {todoCounts?.map((option) => (
           <StackItem
             key={option.id}
             h="full"
@@ -52,7 +52,7 @@ const TodoNavbar = ({ currentState, updateCurrentState }: Props) => {
               <Circle className="circle" size={7} bg="blackAlpha.100">
                 {option.value}
               </Circle>
-              {option.name}
+              {toSentence(option.title)}
             </StyledFlex>
           </StackItem>
         ))}

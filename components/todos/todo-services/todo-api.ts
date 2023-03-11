@@ -10,14 +10,17 @@ export const getAllTodos = async () => {
   });
 };
 
-// export const getTodoCounts = async () => {
-
-// }
+export const getTodoCounts = async () => {
+  const token = tokenVar();
+  const getTodoCountsConfig = `${ApiConfig.todo}/counts`;
+  return axiosInstance.get(getTodoCountsConfig, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+};
 
 export const postTodo = async (data: FormikValues) => {
   const token = tokenVar();
-  // TODO: add / before create
-  const postTodoConfig = `${ApiConfig.todo}create`;
+  const postTodoConfig = `${ApiConfig.todo}/create`;
   return axiosInstance.post(postTodoConfig, data, {
     headers: { Authorization: `Bearer ${token}` },
   });
