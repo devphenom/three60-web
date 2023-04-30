@@ -24,13 +24,7 @@ export const getHTTPErrorMessage = (error: any): string => {
 
 export const isLoading = (value: any) => value === ApiStatus.loading;
 
-export const parseJwt = (token: string) => {
-  try {
-    return JSON.parse(atob(token.split('.')[1]));
-  } catch (error) {
-    return null;
-  }
-};
+export const parseJwt = (token: string) => JSON.parse(atob(token.split('.')[1]));
 
 export function toKebab(string: string) {
   return (

@@ -10,52 +10,19 @@ import TodosListing from './todos-listing/todos-listing';
 import { getAllTodosAction } from '@redux/features/todo/todo-actions';
 import { useAppDispatch, useAppSelector } from '@redux/hooks';
 import EmptyTodo from './empty-todo/empty-todo';
+import { ITodoCount } from '@components/todos/todo-services/types';
 
 type Props = {};
 
-export const TODO_OPTIONS = [
-  {
-    id: 1,
-    name: 'All todos',
-    value: 3,
-  },
-  {
-    id: 2,
-    name: 'Backlog',
-    value: 3,
-  },
-  {
-    id: 3,
-    name: 'In Progress',
-    value: 3,
-  },
-  {
-    id: 4,
-    name: 'Finished',
-    value: 3,
-  },
-  {
-    id: 5,
-    name: 'Overdue',
-    value: 3,
-  },
-  {
-    id: 6,
-    name: 'Trash',
-    value: 3,
-  },
-];
+const defaultNav = { id: 0, title: 'All todos', value: 0 };
 
 const Todos = (props: Props) => {
   const dispatch = useAppDispatch();
 
-  const [navCurrentState, setNavCurrentState] = useState(TODO_OPTIONS[0]);
+  const [navCurrentState, setNavCurrentState] =
+    useState<ITodoCount>(defaultNav);
 
-  const updateNavCurrentState = (val: {
-    id: number;
-    name: string;
-    value: number;
-  }) => setNavCurrentState(val);
+  const updateNavCurrentState = (val: ITodoCount) => setNavCurrentState(val);
 
   const { allTodos, getAllTodoStatus } = useAppSelector((state) => state.todo);
 
@@ -75,7 +42,7 @@ const Todos = (props: Props) => {
 
     return (
       <>
-        <Text>{navCurrentState.name}</Text>
+        <Text>{navCurrentState.title}</Text>
         <TodosListing data={allTodos} />
       </>
     );

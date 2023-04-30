@@ -28,12 +28,12 @@ export const setAuthUser = (user: {
 
 export const tokenVar = () => clientStorage.getItem(THREE60_AUTH_TOKEN);
 
-export const isAuth = async () => {
+export const isAuth = () => {
   const token = tokenVar();
   if (!!token) {
-    const { exp: expiry } = await parseJwt(token);
+    const { exp: expiry } = parseJwt(token);
     if (new Date(expiry * 1000) < new Date()) {
-      Router.push('/');
+      // Router.push('/');
       return false;
     } else {
       return true;

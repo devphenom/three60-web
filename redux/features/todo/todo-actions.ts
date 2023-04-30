@@ -11,40 +11,40 @@ import { getHTTPErrorMessage } from '@utils/functions';
 import { ITodo, ITodoCount } from '@components/todos/todo-services/types';
 import toaster from '@utils/toast';
 
-type ErrorValue = {
+interface ErrorValue {
   rejectValue?: string;
-};
+}
 interface IGetAllTodosActionResult {
   results: ITodo[];
   counts: ITodoCount[];
 }
 
-export const getAllTodosAction = createAsyncThunk<
-  IGetAllTodosActionResult,
-  ErrorValue
->('todos/fetchTodosAction', async (_, { rejectWithValue }) => {
-  const _isAuth = await isAuth();
-  if (!_isAuth) {
-    toaster.danger('Session Expired');
-    return rejectWithValue('Session Expired');
-  }
-  try {
-    const response = await getAllTodos();
-    const todoCountsResponse = await getTodoCounts();
+export const getAllTodosAction = createAsyncThunk<IGetAllTodosActionResult>(
+  'todos/fetchTodosAction',
+  async (_, { rejectWithValue }) => {
+    const _isAuth = isAuth();
+    if (!_isAuth) {
+      toaster.danger('Session Expired');
+      return rejectWithValue('Session Expired');
+    }
+    try {
+      const response = await getAllTodos();
+      const todoCountsResponse = await getTodoCounts();
 
-    return {
-      results: response.data.results,
-      counts: todoCountsResponse.data,
-    } as IGetAllTodosActionResult;
-  } catch (error) {
-    return rejectWithValue(getHTTPErrorMessage(error));
-  }
-});
+      return {
+        results: response.data.results,
+        counts: todoCountsResponse.data,
+      } as IGetAllTodosActionResult;
+    } catch (error) {
+      return rejectWithValue(getHTTPErrorMessage(error));
+    }
+  },
+);
 
 export const postTodoAction = createAsyncThunk<ITodo, ErrorValue>(
   'todo/postTodoAction',
   async (data: FormikValues, { rejectWithValue }) => {
-    const _isAuth = await isAuth();
+    const _isAuth = isAuth();
     if (!_isAuth) {
       toaster.danger('Session Expired');
       return rejectWithValue('Session Expired');

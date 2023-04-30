@@ -6,7 +6,7 @@ import { toSentence } from '../../../utils/functions';
 import { ITodoCount } from '@components/todos/todo-services/types';
 
 type Props = {
-  currentState: { id: number; name: string; value: number };
+  currentState: ITodoCount;
   updateCurrentState: (val: ITodoCount) => void;
 };
 

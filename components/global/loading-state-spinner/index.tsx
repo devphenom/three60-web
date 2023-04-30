@@ -8,7 +8,7 @@ type Props = {
 export const LoadingStateSpinner = ({ size = 'xl' }: Props) => {
   return (
     <Flex align="center" justify="center">
-      <Spinner size={size} />;
+      <Spinner size={size} />
     </Flex>
   );
 };
