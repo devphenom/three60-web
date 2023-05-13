@@ -1,3 +1,4 @@
+import { ApiStatus } from './../types';
 export const getHTTPErrorMessage = (error: any): string => {
   if (error?.response) {
     /* The request was made
@@ -18,5 +19,22 @@ export const getHTTPErrorMessage = (error: any): string => {
     // The request was made but no response was received
     return 'Something went wrong';
   }
-  return 'Hello world';
+  return '';
 };
+
+export const isLoading = (value: any) => value === ApiStatus.loading;
+
+export const parseJwt = (token: string) => JSON.parse(atob(token.split('.')[1]));
+
+export function toKebab(string: string) {
+  return (
+    string
+      // ...
+      .replace(/[_\s]+/g, '-')
+  );
+}
+
+export function toSentence(string: string) {
+  const interim = toKebab(string).replace(/-/g, ' ');
+  return interim.slice(0, 1).toUpperCase() + interim.slice(1);
+}

@@ -31,7 +31,9 @@
       "@utils": ["utils"],
       "@utils/*": ["utils/*"],
       "@icons": ["icons"],
-      "@icons/*": ["icons/*"]
+      "@icons/*": ["icons/*"],
+      "@features": ["features"],
+      "@features/*": ["features/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src", "theme"],

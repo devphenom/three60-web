@@ -2,6 +2,7 @@ import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
 import { Formik, FormikValues } from 'formik';
 import { Box, Heading, Text } from '@chakra-ui/react';
+import { signIn } from 'next-auth/react';
 
 import { Button } from '@global/button';
 import { authUser } from '@redux/features/user';
@@ -17,18 +18,24 @@ const SignIn: React.FC<SignInProps> = ({ handleAuth }: SignInProps) => {
   const router = useRouter();
   const toaster = useToaster();
   const dispatch = useDispatch();
-  const [signIn, { loading }] = useLazyAxios('/auth/signin', 'POST');
+  // const [signIn, { loading }] = useLazyAxios('/auth/signin', 'POST');
 
   const onSubmit = async (values: FormikValues) => {
-    const { data, error } = await signIn(values);
-    if (data) {
-      dispatch(authUser(data));
-      router.push('/todos');
-      toaster.success('Signin Successful.');
-    }
-    if (error) {
-      toaster.danger(error);
-    }
+    const res = await signIn('credentials', {
+      username: values.username,
+      password: values.password,
+      redirect: false,
+      action: 'signIn',
+    });
+    console.log(res);
+    // if (data) {
+    //   dispatch(authUser(data));
+    //   router.push('/todos');
+    //   toaster.success('Signin Successful.');
+    // }
+    // if (error) {
+    //   toaster.danger(error);
+    // }
   };
 
   return (
@@ -74,7 +81,7 @@ const SignIn: React.FC<SignInProps> = ({ handleAuth }: SignInProps) => {
                 />
 
                 <Button
-                  isLoading={loading}
+                  // isLoading={loading}
                   mb={6}
                   type="submit"
                   w="full"

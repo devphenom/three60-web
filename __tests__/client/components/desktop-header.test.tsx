@@ -1,6 +1,6 @@
 import { FormEvent, useState } from 'react';
 import { testMount } from '@utils/testMount';
-import DesktopHeader from './desktop-header';
+import { DesktopHeader } from '@components';
 
 const TestDesktopHeader = () => {
   const [value, setValue] = useState('');

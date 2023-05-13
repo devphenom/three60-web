@@ -1,5 +1,9 @@
+import Router from 'next/router';
+import { NextResponse } from 'next/server';
 import clientStorage from './clientStorage';
 import { THREE60_AUTH_TOKEN, THREE60_AUTH_USER } from './constants';
+import { parseJwt } from './functions';
+import toaster from '@utils/toast';
 
 export const setIsAuth = (token: string) => {
   if (token) {
@@ -20,6 +24,23 @@ export const setAuthUser = (user: {
   } else {
     clientStorage.removeItem(THREE60_AUTH_USER);
   }
+};
+
+export const tokenVar = () => clientStorage.getItem(THREE60_AUTH_TOKEN);
+
+export const isAuth = () => {
+  const token = tokenVar();
+  if (!!token) {
+    const { exp: expiry } = parseJwt(token);
+    if (new Date(expiry * 1000) < new Date()) {
+      // Router.push('/');
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  return false;
 };
 
 export const handleLogout = () => {

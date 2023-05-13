@@ -1,14 +1,18 @@
 import { Wrap } from '@chakra-ui/react';
-import React from 'react';
+
 import TodoCard from '../todo-card/todo-card';
+import { ITodo } from '../todo-services/types';
 
-type Props = {};
+type Props = {
+  data: ITodo[];
+};
 
-const TodosListing = (props: Props) => {
+const TodosListing = ({ data }: Props) => {
   return (
     <Wrap>
-      <TodoCard />
-      <TodoCard />
+      {data.map((todo) => (
+        <TodoCard item={todo} key={todo.id} />
+      ))}
     </Wrap>
   );
 };
