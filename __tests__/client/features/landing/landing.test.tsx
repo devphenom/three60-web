@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import Landing from '@components/home/landing/landing';
+import Landing from '@features/landing/landing';
 
 describe('Landing', () => {
   it('should render landing without crashing', () => {
@@ -10,7 +10,7 @@ describe('Landing', () => {
     const description = screen.getByTestId('description');
 
     expect(heading).toBeInTheDocument();
-    expect(lists).toHaveLength(3);
+    expect(lists).toHaveLength(4);
     expect(description).toBeInTheDocument();
 
     expect(heading).toMatchSnapshot();
