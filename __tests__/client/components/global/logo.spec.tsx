@@ -1,5 +1,5 @@
 import { testMount } from '@utils/testMount';
-import { Logo } from './index';
+import { Logo } from '../../../../components/global/logo/index';
 
 describe('should render without crashing', () => {
   const component = testMount(<Logo />);

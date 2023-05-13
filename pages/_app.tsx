@@ -6,18 +6,21 @@ import theme from 'theme';
 import store from '@redux/store';
 
 import '@styles/globals.css';
+import { SessionProvider } from 'next-auth/react';
 
-function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   return (
-    <Provider store={store}>
-      <ChakraProvider theme={theme}>
-        <GoogleOAuthProvider
-          clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || ''}
-        >
-          <Component {...pageProps} />
-        </GoogleOAuthProvider>
-      </ChakraProvider>
-    </Provider>
+    <SessionProvider session={session}>
+      <Provider store={store}>
+        <ChakraProvider theme={theme}>
+          <GoogleOAuthProvider
+            clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || ''}
+          >
+            <Component {...pageProps} />
+          </GoogleOAuthProvider>
+        </ChakraProvider>
+      </Provider>
+    </SessionProvider>
   );
 }
 

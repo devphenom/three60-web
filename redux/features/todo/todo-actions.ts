@@ -2,33 +2,56 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import {
   getAllTodos,
   postTodo,
+  getTodoCounts,
 } from '@components/todos/todo-services/todo-api';
 import { FormikValues } from 'formik';
-import { getHTTPErrorMessage } from '@utils/functions';
+
 import { isAuth } from '@utils/auth';
-import clientStorage from '@utils/clientStorage';
-import { THREE60_AUTH_TOKEN } from '../../../utils/constants';
+import { getHTTPErrorMessage } from '@utils/functions';
+import { ITodo, ITodoCount } from '@components/todos/todo-services/types';
+import toaster from '@utils/toast';
 
-export const getAllTodosAction = createAsyncThunk(
+interface ErrorValue {
+  rejectValue?: string;
+}
+interface IGetAllTodosActionResult {
+  results: ITodo[];
+  counts: ITodoCount[];
+}
+
+export const getAllTodosAction = createAsyncThunk<IGetAllTodosActionResult>(
   'todos/fetchTodosAction',
-  async () => {
-    const response = await getAllTodos();
+  async (_, { rejectWithValue }) => {
+    const _isAuth = isAuth();
+    if (!_isAuth) {
+      toaster.danger('Session Expired');
+      return rejectWithValue('Session Expired');
+    }
+    try {
+      const response = await getAllTodos();
+      const todoCountsResponse = await getTodoCounts();
 
-    return response.data.results;
+      return {
+        results: response.data.results,
+        counts: todoCountsResponse.data,
+      } as IGetAllTodosActionResult;
+    } catch (error) {
+      return rejectWithValue(getHTTPErrorMessage(error));
+    }
   },
 );
 
-export const postTodoAction = createAsyncThunk(
+export const postTodoAction = createAsyncThunk<ITodo, ErrorValue>(
   'todo/postTodoAction',
   async (data: FormikValues, { rejectWithValue }) => {
+    const _isAuth = isAuth();
+    if (!_isAuth) {
+      toaster.danger('Session Expired');
+      return rejectWithValue('Session Expired');
+    }
     try {
-      const _isAuth = await isAuth(
-        clientStorage.getItem(THREE60_AUTH_TOKEN) || '',
-      );
-      if (_isAuth) {
-        const response = await postTodo(data);
-        return response.data;
-      }
+      const response = await postTodo(data);
+      return response.data;
     } catch (error) {
       return rejectWithValue(getHTTPErrorMessage(error));
     }

@@ -1,11 +1,11 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import React, { useState } from 'react';
-import FormInput from './form-input';
+import FormTexarea from '@components/form-textarea/form-textarea';
 
-const TestInputForm: React.FC = () => {
+const TestTexareaForm: React.FC = () => {
   const [value, setValue] = useState('');
 
-  const handleChange = (e: React.FormEvent<HTMLInputElement>) =>
+  const handleChange = (e: React.FormEvent<HTMLTextAreaElement>) =>
     setValue(e.currentTarget?.value);
 
   const props = {
@@ -15,17 +15,17 @@ const TestInputForm: React.FC = () => {
     placeholder: 'sample-form',
   };
 
-  return <FormInput {...props} />;
+  return <FormTexarea {...props} />;
 };
 
 test('should render input without crashing', () => {
-  render(<TestInputForm />);
+  render(<TestTexareaForm />);
 
   expect(screen.getByPlaceholderText(/sample-form/)).toBeInTheDocument();
 });
 
 test('should render with initial values', () => {
-  render(<TestInputForm />);
+  render(<TestTexareaForm />);
 
   const input = screen.getByPlaceholderText(/sample-form/) as HTMLInputElement;
 
@@ -34,7 +34,7 @@ test('should render with initial values', () => {
 });
 
 test('should change value on onChange function call', () => {
-  render(<TestInputForm />);
+  render(<TestTexareaForm />);
 
   const input = screen.getByPlaceholderText(/sample-form/) as HTMLInputElement;
 

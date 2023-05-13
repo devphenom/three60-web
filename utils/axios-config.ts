@@ -13,6 +13,6 @@ export const axiosInstance = axios.create({
 });
 
 export const ApiConfig = {
-  // TODO: remove / after todo
-  todo: '/todo/',
+  todo: '/todo',
+  todoCount: '/todo/counts',
 };
