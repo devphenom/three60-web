@@ -10,6 +10,7 @@ import { FormInput, GoogleAuth } from '@components';
 
 import { AuthProps } from '../types';
 import { SIGNUP_VALIDATION_SCHEMA } from '../formValidation';
+import { signIn } from 'next-auth/react';
 
 type RegisterProps = AuthProps;
 
@@ -19,19 +20,27 @@ const Register: React.FC<RegisterProps> = (props) => {
   const toaster = useToaster();
   const dispatch = useDispatch();
   const router = useRouter();
-  const [signUp, { loading }] = useLazyAxios('/auth/register', 'POST');
+  // const [signUp, { loading }] = useLazyAxios('/auth/register', 'POST');
 
   const onSubmit = async (values: FormikValues) => {
-    const { data, error } = await signUp(values);
+    // const { data, error } = await signUp(values);
+    const res = await signIn('credentials', {
+      username: values.username,
+      password: values.password,
+      email: values.email,
+      redirect: false,
+      action: 'signUp',
+    });
+    console.log(res);
 
-    if (data) {
-      dispatch(authUser(data));
-      router.push('/todos');
-      toaster.success('Signin successful.');
-    }
-    if (error) {
-      toaster.danger(error);
-    }
+    // if (data) {
+    //   dispatch(authUser(data));
+    //   router.push('/todos');
+    //   toaster.success('Signin successful.');
+    // }
+    // if (error) {
+    //   toaster.danger(error);
+    // }
   };
 
   return (
@@ -105,7 +114,7 @@ const Register: React.FC<RegisterProps> = (props) => {
                 />
 
                 <Button
-                  isLoading={loading}
+                  // isLoading={loading}
                   mb={6}
                   type="submit"
                   w="full"

@@ -1,6 +1,6 @@
 import { FormEvent, useState } from 'react';
 import { testMount } from '@utils/testMount';
-import MobileHeader from './mobile-header';
+import MobileHeader from '../../../components/mobile-header/mobile-header';
 
 const TestMobileHeader = () => {
   const [value, setValue] = useState('');
