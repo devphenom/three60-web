@@ -1,7 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 import {
   Box,
-  Container,
   Flex,
   HStack,
   Heading,
@@ -13,6 +12,7 @@ import {
 } from '@chakra-ui/react';
 import React, { ReactElement } from 'react';
 import { HomeIconsContainer } from '../../landing/landing';
+import Link from 'next/link';
 
 type Props = {
   children: ReactElement;
@@ -40,17 +40,19 @@ const AuthWrapper = (props: Props) => {
 
         <Box w={['100%', '50%', '50%']} px={[6, 10, 20]} pt={[6, 10, 10]}>
           <Stack w="full" alignItems="flex-start">
-            <HStack mb={4}>
-              <Image alt="logo" src="/icons/logo.svg" />
-              <Heading
-                as="h2"
-                fontSize="24px"
-                color="brand.100"
-                fontWeight="500"
-              >
-                three60
-              </Heading>
-            </HStack>
+            <Link href="/">
+              <HStack mb={4} cursor="pointer">
+                <Image alt="logo" src="/icons/logo.svg" />
+                <Heading
+                  as="h2"
+                  fontSize="24px"
+                  color="brand.100"
+                  fontWeight="500"
+                >
+                  three60
+                </Heading>
+              </HStack>
+            </Link>
 
             {props.children}
           </Stack>

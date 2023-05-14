@@ -139,7 +139,7 @@ export const authOptions: NextAuthOptions = {
   },
   pages: {
     signIn: '/auth/signin',
-    signOut: '/auth/signin',
+    signOut: '/auth/logout',
   },
 };
 
