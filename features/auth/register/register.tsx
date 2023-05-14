@@ -50,15 +50,16 @@ const Register: React.FC = () => {
     }
   };
 
-  useEffect(() => {
-    if (session) {
-      router.push('/todos');
-    }
-  }, [router, session, status]);
+  // todo: unhide these after logout is impleted
+  // useEffect(() => {
+  //   if (session) {
+  //     router.push('/todos');
+  //   }
+  // }, [router, session, status]);
 
-  if (session) {
-    handleNavigate(returnUrl, router);
-  }
+  // if (session) {
+  //   handleNavigate(returnUrl, router);
+  // }
 
   return (
     <>
