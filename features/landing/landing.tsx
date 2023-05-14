@@ -3,6 +3,8 @@ import React from 'react';
 import { HomeIconsProps } from 'types';
 import {
   Box,
+  Center,
+  Circle,
   Container,
   Flex,
   Heading,
@@ -16,24 +18,43 @@ import Link from 'next/link';
 import { Button } from '@components/global';
 
 const HomeIcons = ({ imageSrc, text }: HomeIconsProps) => (
-  <Box w={['100%', '200px', '200px']} h="105px" bg="white" borderRadius="5px">
+  <Center
+    w={['100%', '200px', '200px']}
+    h="105px"
+    bg="white"
+    borderRadius="5px"
+  >
     <HStack alignItems="center" justifyContent="center" h="full">
-      <Text
+      <Circle
         data-testid="landing-lists"
         as="span"
         borderRadius="50%"
         bg="blackAlpha.200"
-        w="8"
-        h="8"
+        size="8"
         display="flex"
         alignItems="center"
         justifyContent="center"
       >
         <Image src={imageSrc} alt="todos" width="20%" height="20%" />
-      </Text>
+      </Circle>
       <Text textTransform="uppercase">{text}</Text>
     </HStack>
-  </Box>
+  </Center>
+);
+
+export const HomeIconsContainer = () => (
+  <VStack
+    color="blackAlpha.600"
+    gap={5}
+    flexWrap={'wrap'}
+    flexDir={['column', 'row', 'row']}
+  >
+    <HomeIcons imageSrc="/icons/todos.svg" text="todos" />
+    <HomeIcons imageSrc="/icons/notes.svg" text="notes" />
+    <HomeIcons imageSrc="/icons/bookmarks.svg" text="bookmarks" />
+    {/* //todo: change extension icon */}
+    <HomeIcons imageSrc="/icons/bookmarks.svg" text="Extension" />
+  </VStack>
 );
 
 const Landing: React.FC = () => (
@@ -63,18 +84,7 @@ const Landing: React.FC = () => (
         </Box>
         <Spacer />
         <Box p={5} w={['100%', '50%', '50%']}>
-          <VStack
-            color="blackAlpha.600"
-            gap={5}
-            flexWrap={'wrap'}
-            flexDir={['column', 'row', 'row']}
-          >
-            <HomeIcons imageSrc="/icons/todos.svg" text="todos" />
-            <HomeIcons imageSrc="/icons/notes.svg" text="notes" />
-            <HomeIcons imageSrc="/icons/bookmarks.svg" text="bookmarks" />
-            {/* //todo: change extension icon */}
-            <HomeIcons imageSrc="/icons/bookmarks.svg" text="Extension" />
-          </VStack>
+          <HomeIconsContainer />
         </Box>
       </Flex>
     </Container>

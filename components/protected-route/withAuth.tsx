@@ -1,24 +1,28 @@
 import { NextComponentType } from 'next';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { isAuth } from '../../utils/auth';
 import { LoadingStateSpinner } from '@global';
+import { AuthContext } from '../../pages/_app';
 
 const withAuth = (Component: NextComponentType) => {
-  const AuthenticatedComponent = ({ isAuth }: { isAuth: boolean }) => {
+  const AuthenticatedComponent = () => {
     const router = useRouter();
+    const { session } = useContext(AuthContext);
 
     const handleRender = () => {
-      if (!isAuth) {
+      if (!session) {
         const returnUrl = router.asPath;
 
         process.browser &&
-          router.push(`/?returnUrl=${encodeURIComponent(returnUrl)}`);
+          router.push(
+            `/auth/signin?returnUrl=${encodeURIComponent(returnUrl)}`,
+          );
 
         return null;
       }
 
-      if (isAuth) {
+      if (session) {
         return <Component />;
       }
 
@@ -28,22 +32,11 @@ const withAuth = (Component: NextComponentType) => {
     return <>{handleRender()}</>;
   };
 
-  AuthenticatedComponent.getServerSideProps = async () => {
-    if (!isAuth()) {
-      return {
-        redirect: {
-          destination: '/',
-          permanent: false,
-        },
-      };
-    }
-
-    return {
-      props: {
-        isAuth: isAuth(),
-      },
-    };
-  };
+  // AuthenticatedComponent.getServerSideProps = async () => {
+  //   return {
+  //     // props: {},
+  //   };
+  // };
 
   return AuthenticatedComponent;
 };

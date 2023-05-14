@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Box, Heading, HStack, Image, Stack } from '@chakra-ui/react';
 
-import SignIn from './sign-in/sign-in';
-import Register from './register/register';
+import SignIn from '../../../features/auth/sign-in/sign-in';
+import Register from '../../../features/auth/register/register';
 
 const Auth: React.FC = () => {
   const [signIn, setSignIn] = useState(true);

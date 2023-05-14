@@ -4,11 +4,12 @@ import '@testing-library/react';
 import { screen } from '@testing-library/react';
 
 test('should render NavLink without crashing', () => {
-  const mountedNavLink = testMount(<NavLink href="/todo"> todo</NavLink>);
+  const mountedNavLink = testMount(<NavLink href="/"> todo</NavLink>);
 
   expect(mountedNavLink).toBeTruthy();
 });
-test('should render wiith children', () => {
+
+test('should render with children', () => {
   testMount(<NavLink href="/todo">todo</NavLink>);
 
   expect(screen.getByTestId('nav-link')).toHaveTextContent('todo');

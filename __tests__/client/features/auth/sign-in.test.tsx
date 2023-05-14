@@ -1,49 +1,49 @@
-// import { fireEvent, screen } from '@testing-library/react';
-// import { act } from 'react-dom/test-utils';
-// import useLazyAxios from '@hooks/use-axios/use-axios';
-// import SignIn from './sign-in';
-// import { testMount } from '@utils/testMount';
+import { fireEvent, screen } from '@testing-library/react';
+import { act } from 'react-dom/test-utils';
+import useLazyAxios from '@hooks/use-axios/use-axios';
+import { testMount } from '@utils/testMount';
+import SignIn from '@features/auth/sign-in/sign-in';
 
-// jest.mock('@hooks/use-axios/use-axios');
+jest.mock('@hooks/use-axios/use-axios');
 
-// const mockUseLazyAxios = useLazyAxios as jest.MockedFunction<
-//   typeof useLazyAxios
-// >;
+const mockUseLazyAxios = useLazyAxios as jest.MockedFunction<
+  typeof useLazyAxios
+>;
 
-// test('should render signin without crashing', () => {
-//   mockUseLazyAxios.mockReturnValue([
-//     () => Promise.resolve({ data: null, loading: false, error: null }),
-//     {
-//       data: null,
-//       loading: false,
-//       error: '',
-//       cancel: () => null,
-//     },
-//   ]);
+test('should render signin without crashing', () => {
+  mockUseLazyAxios.mockReturnValue([
+    () => Promise.resolve({ data: null, loading: false, error: null }),
+    {
+      data: null,
+      loading: false,
+      error: '',
+      cancel: () => null,
+    },
+  ]);
 
-//   testMount(<SignIn handleAuth={() => null} />);
+  testMount(<SignIn />);
 
-//   expect(screen.getByText(/Welcome Back/)).toBeInTheDocument();
-// });
+  expect(screen.getByText(/Welcome Back/)).toBeInTheDocument();
+});
 
-// test('should render signin form', async () => {
-//   mockUseLazyAxios.mockReturnValue([
-//     () => Promise.resolve({ data: null, loading: false, error: null }),
-//     {
-//       data: null,
-//       loading: false,
-//       error: '',
-//       cancel: () => null,
-//     },
-//   ]);
+test('should render signin form', async () => {
+  mockUseLazyAxios.mockReturnValue([
+    () => Promise.resolve({ data: null, loading: false, error: null }),
+    {
+      data: null,
+      loading: false,
+      error: '',
+      cancel: () => null,
+    },
+  ]);
 
-//   testMount(<SignIn handleAuth={() => null} />);
+  testMount(<SignIn />);
 
-//   expect(screen.getByLabelText(/Username/)).toBeInTheDocument();
-//   expect(screen.getByPlaceholderText('********')).toBeInTheDocument();
-//   expect(screen.getByTestId(/sign-in-button/)).toBeInTheDocument();
-//   expect(screen.getByTestId(/sign-in-button/)).toHaveTextContent('Sign In');
-// });
+  expect(screen.getByLabelText(/Username/)).toBeInTheDocument();
+  expect(screen.getByPlaceholderText('********')).toBeInTheDocument();
+  expect(screen.getByTestId(/sign-in-button/)).toBeInTheDocument();
+  expect(screen.getByTestId(/sign-in-button/)).toHaveTextContent('Sign In');
+});
 
 // test('should render a loading button', async () => {
 //   mockUseLazyAxios.mockImplementation(() => [
