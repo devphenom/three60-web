@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import 'regenerator-runtime';
 
 /** Add any global mocks needed for the test suite here */
@@ -15,3 +16,15 @@ Object.defineProperty(window, 'matchMedia', {
     dispatchEvent: jest.fn(),
   })),
 });
+
+// setup router mock
+jest.mock('next/router', () => ({
+  useRouter: jest.fn(() => {
+    return {
+      pathname: '/',
+      pathName: '/',
+      push: jest.fn(),
+      query: { returnUrl: '/todos' },
+    };
+  }),
+}));

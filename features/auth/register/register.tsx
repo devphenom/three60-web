@@ -1,47 +1,64 @@
+import Link from 'next/link';
+import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/router';
-import { useDispatch } from 'react-redux';
 import { Formik, FormikValues } from 'formik';
+import { useContext, useEffect, useState } from 'react';
 import { Box, Heading, Text } from '@chakra-ui/react';
 
+import { useToaster } from '@hooks';
 import { Button } from '@global/button';
-import { authUser } from '@redux/features/user';
-import { useToaster, useLazyAxios } from '@hooks';
 import { FormInput, GoogleAuth } from '@components';
+import { getHTTPErrorMessage, handleNavigate } from '@utils/functions';
+import { SIGNUP_VALIDATION_SCHEMA } from '@components/home/auth/formValidation';
 
-import { AuthProps } from '../types';
-import { SIGNUP_VALIDATION_SCHEMA } from '../formValidation';
-import { signIn } from 'next-auth/react';
+import { AuthContext } from '../../../pages/_app';
 
-type RegisterProps = AuthProps;
-
-const Register: React.FC<RegisterProps> = (props) => {
-  const { handleAuth } = props;
-
-  const toaster = useToaster();
-  const dispatch = useDispatch();
+const Register: React.FC = () => {
   const router = useRouter();
-  // const [signUp, { loading }] = useLazyAxios('/auth/register', 'POST');
+  const toaster = useToaster();
+  const [isLoading, setIsLoading] = useState(false);
+  const { status, session } = useContext(AuthContext);
+  // check if there is a callback url
+  const returnUrl = router?.query.returnUrl as string;
 
   const onSubmit = async (values: FormikValues) => {
-    // const { data, error } = await signUp(values);
-    const res = await signIn('credentials', {
-      username: values.username,
-      password: values.password,
-      email: values.email,
-      redirect: false,
-      action: 'signUp',
-    });
-    console.log(res);
+    setIsLoading(true);
 
-    // if (data) {
-    //   dispatch(authUser(data));
-    //   router.push('/todos');
-    //   toaster.success('Signin successful.');
-    // }
-    // if (error) {
-    //   toaster.danger(error);
-    // }
+    try {
+      const res = await signIn('credentials', {
+        username: values.username,
+        password: values.password,
+        email: values.email,
+        redirect: false,
+        action: 'signUp',
+      });
+
+      if (!!res?.ok) {
+        handleNavigate(returnUrl, router);
+        router.push('/todos');
+        toaster.success('Signin successful.');
+      }
+
+      if (res?.error) {
+        toaster.danger(res?.error);
+      }
+
+      setIsLoading(false);
+    } catch (error: any) {
+      setIsLoading(false);
+      toaster.danger(getHTTPErrorMessage(error));
+    }
   };
+
+  useEffect(() => {
+    if (session) {
+      router.push('/todos');
+    }
+  }, [router, session, status]);
+
+  if (session) {
+    handleNavigate(returnUrl, router);
+  }
 
   return (
     <>
@@ -114,7 +131,7 @@ const Register: React.FC<RegisterProps> = (props) => {
                 />
 
                 <Button
-                  // isLoading={loading}
+                  isLoading={isLoading}
                   mb={6}
                   type="submit"
                   w="full"
@@ -127,13 +144,10 @@ const Register: React.FC<RegisterProps> = (props) => {
 
                 <Text>
                   Already have an account?{' '}
-                  <Text
-                    color="brand.500"
-                    as="span"
-                    cursor="pointer"
-                    onClick={handleAuth}
-                  >
-                    Sign in
+                  <Text as="span" color="brand.500">
+                    <Link color="brand.500" href="/auth/signin">
+                      Sign in
+                    </Link>
                   </Text>
                 </Text>
               </Box>

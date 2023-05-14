@@ -1,3 +1,4 @@
+/* eslint-disable react/display-name */
 import { Flex } from '@chakra-ui/react';
 import Link from 'next/link';
 import React, { SVGProps } from 'react';
@@ -7,7 +8,7 @@ interface ILogoProps {
   small?: boolean;
 }
 
-const LogoIconSm = (props: SVGProps<SVGSVGElement>) => {
+const LogoIconSm = React.forwardRef((props: SVGProps<SVGSVGElement>, ref) => {
   return (
     <svg
       width="88"
@@ -27,9 +28,9 @@ const LogoIconSm = (props: SVGProps<SVGSVGElement>) => {
       />
     </svg>
   );
-};
+});
 
-const LogoIconFull = (props: SVGProps<SVGSVGElement>) => {
+const LogoIconFull = React.forwardRef((props: SVGProps<SVGSVGElement>, ref) => {
   return (
     <Flex align="center" gap="5px" cursor={'pointer'}>
       <svg
@@ -91,7 +92,7 @@ const LogoIconFull = (props: SVGProps<SVGSVGElement>) => {
       </svg>
     </Flex>
   );
-};
+});
 
 export const Logo: React.FC<ILogoProps> = ({ full }: ILogoProps) => {
   if (full) {
