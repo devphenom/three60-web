@@ -138,8 +138,8 @@ export const authOptions: NextAuthOptions = {
     },
   },
   pages: {
-    signIn: '/',
-    // signOut: '/',
+    signIn: '/auth/signin',
+    signOut: '/auth/signin',
   },
 };
 

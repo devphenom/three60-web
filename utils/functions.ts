@@ -1,3 +1,4 @@
+import { NextRouter } from 'next/router';
 import { ApiStatus } from './../types';
 export const getHTTPErrorMessage = (error: any): string => {
   if (error?.response) {
@@ -24,7 +25,8 @@ export const getHTTPErrorMessage = (error: any): string => {
 
 export const isLoading = (value: any) => value === ApiStatus.loading;
 
-export const parseJwt = (token: string) => JSON.parse(atob(token.split('.')[1]));
+export const parseJwt = (token: string) =>
+  JSON.parse(atob(token.split('.')[1]));
 
 export function toKebab(string: string) {
   return (
@@ -38,3 +40,11 @@ export function toSentence(string: string) {
   const interim = toKebab(string).replace(/-/g, ' ');
   return interim.slice(0, 1).toUpperCase() + interim.slice(1);
 }
+
+// handle callback url navigation
+export const handleNavigate = (returnUrl: string, router: NextRouter) => {
+  if (returnUrl) {
+    router.push(returnUrl);
+  }
+  router.push('/todos');
+};
