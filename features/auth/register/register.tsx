@@ -8,15 +8,13 @@ import { authUser } from '@redux/features/user';
 import { useToaster, useLazyAxios } from '@hooks';
 import { FormInput, GoogleAuth } from '@components';
 
-import { AuthProps } from '../types';
-import { SIGNUP_VALIDATION_SCHEMA } from '../formValidation';
+import { AuthProps } from '../../../components/home/auth/types';
+import { SIGNUP_VALIDATION_SCHEMA } from '../../../components/home/auth/formValidation';
 import { signIn } from 'next-auth/react';
 
 type RegisterProps = AuthProps;
 
-const Register: React.FC<RegisterProps> = (props) => {
-  const { handleAuth } = props;
-
+const Register: React.FC = () => {
   const toaster = useToaster();
   const dispatch = useDispatch();
   const router = useRouter();
@@ -131,7 +129,7 @@ const Register: React.FC<RegisterProps> = (props) => {
                     color="brand.500"
                     as="span"
                     cursor="pointer"
-                    onClick={handleAuth}
+                    onClick={() => null}
                   >
                     Sign in
                   </Text>
