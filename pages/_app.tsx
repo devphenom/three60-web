@@ -11,8 +11,10 @@ import { Session } from 'next-auth';
 import { createContext } from 'react';
 import theme from '../theme';
 
-function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
-  return (
+function MyApp({
+  Component,
+  pageProps: { session, ...pageProps },
+}: AppProps<{ session: Session }>) {  return (
     <SessionProvider session={session}>
       <Provider store={store}>
         <AuthWrapper>
