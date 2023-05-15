@@ -1,5 +1,5 @@
-import { Button } from '.';
 import { fireEvent, render, screen } from '@testing-library/react';
+import { Button } from '@components/global';
 
 test('should render button without crashing', () => {
   render(<Button>Sample Button</Button>);

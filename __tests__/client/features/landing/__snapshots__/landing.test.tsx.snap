@@ -13,7 +13,7 @@ exports[`Landing should render landing without crashing 1`] = `
 exports[`Landing should render landing without crashing 2`] = `
 [
   <span
-    class="chakra-text css-0"
+    class="css-0"
     data-testid="landing-lists"
   >
     <span
@@ -40,7 +40,7 @@ exports[`Landing should render landing without crashing 2`] = `
     </span>
   </span>,
   <span
-    class="chakra-text css-0"
+    class="css-0"
     data-testid="landing-lists"
   >
     <span
@@ -67,7 +67,7 @@ exports[`Landing should render landing without crashing 2`] = `
     </span>
   </span>,
   <span
-    class="chakra-text css-0"
+    class="css-0"
     data-testid="landing-lists"
   >
     <span
@@ -94,7 +94,7 @@ exports[`Landing should render landing without crashing 2`] = `
     </span>
   </span>,
   <span
-    class="chakra-text css-0"
+    class="css-0"
     data-testid="landing-lists"
   >
     <span
