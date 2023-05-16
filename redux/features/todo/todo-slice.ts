@@ -1,5 +1,5 @@
 import toaster from '@utils/toast';
-import { ITodoState } from '@components/todos/todo-services/types';
+import { ITodoState } from '@features/todos/todo-services/todo-utils';
 import { createSlice } from '@reduxjs/toolkit';
 import { ApiStatus } from '../../../types';
 import { getAllTodosAction, postTodoAction } from './todo-actions';

@@ -31,6 +31,8 @@ const clientTestConfig = {
     '^@icons(.*)$': '<rootDir>/icons$1',
     '^@features/(.*)$': '<rootDir>/features/$1',
     '^@features(.*)$': '<rootDir>/features$1',
+    '^@libs/(.*)$': '<rootDir>/libs/$1',
+    '^@libs(.*)$': '<rootDir>/libs$1',
   },
 };
 

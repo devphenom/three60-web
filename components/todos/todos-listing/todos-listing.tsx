@@ -1,7 +1,7 @@
 import { Wrap } from '@chakra-ui/react';
 
 import TodoCard from '../todo-card/todo-card';
-import { ITodo } from '../todo-services/types';
+import { ITodo } from '../../../features/todos/todo-services/todo-utils';
 
 type Props = {
   data: ITodo[];

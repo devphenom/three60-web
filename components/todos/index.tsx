@@ -10,7 +10,7 @@ import TodosListing from './todos-listing/todos-listing';
 import { getAllTodosAction } from '@redux/features/todo/todo-actions';
 import { useAppDispatch, useAppSelector } from '@redux/hooks';
 import EmptyTodo from './empty-todo/empty-todo';
-import { ITodoCount } from '@components/todos/todo-services/types';
+import { ITodoCount } from '@features/todos/todo-services/todo-utils';
 
 type Props = {};
 

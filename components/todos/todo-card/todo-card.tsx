@@ -13,7 +13,7 @@ import React from 'react';
 import { Button } from '@global';
 import { DeleteIcon, EditIcon, EllipsesIcon, MarkCompleteIcon } from '@icons';
 
-import { ITodo } from '../todo-services/types';
+import { ITodo } from '../../../features/todos/todo-services/todo-utils';
 
 type Props = { item: ITodo };
 

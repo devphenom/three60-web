@@ -3,7 +3,7 @@ import { Formik, FormikValues } from 'formik';
 import React from 'react';
 import { FormInput, FormTextarea } from '@components';
 import { Button } from '@global';
-import { TODO_FORM_VALIDATION_SCHEMA } from '../todo-services/todo-formValidation';
+import { TODO_FORM_VALIDATION_SCHEMA } from '../../../features/todos/todo-services/todo-formValidation';
 
 type Props = {
   onClose: () => void;

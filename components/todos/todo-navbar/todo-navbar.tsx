@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import React from 'react';
 import { useAppSelector } from '../../../redux/hooks';
 import { toSentence } from '../../../utils/functions';
-import { ITodoCount } from '@components/todos/todo-services/types';
+import { ITodoCount } from '@features/todos/todo-services/todo-utils';
 
 type Props = {
   currentState: ITodoCount;

@@ -3,12 +3,12 @@ import {
   getAllTodos,
   postTodo,
   getTodoCounts,
-} from '@components/todos/todo-services/todo-api';
+} from '@features/todos/todo-services/todo-api';
 import { FormikValues } from 'formik';
 
 import { isAuth } from '@utils/auth';
 import { getHTTPErrorMessage } from '@utils/functions';
-import { ITodo, ITodoCount } from '@components/todos/todo-services/types';
+import { ITodo, ITodoCount } from '@features/todos/todo-services/todo-utils';
 import toaster from '@utils/toast';
 
 interface ErrorValue {
