@@ -1,12 +1,12 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import clientPromise from '@libs/mongo-db';
 import Todos from '@libs/schema/todos';
-import { getServerSession } from 'next-auth';
+import { getServerSession } from 'next-auth/next';
 import { authOptions } from '../auth/[...nextauth]';
 
 import axios from 'axios';
 
-export default async function handler(
+export default async function todoHandler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {

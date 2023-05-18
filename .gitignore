@@ -50,3 +50,5 @@ old
 ### VisualStudioCode Patch ###
 # Ignore all local history of files
 .history
+
+__tests__/env_setup.ts

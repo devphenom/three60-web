@@ -13,7 +13,7 @@ const clientPromise = client.connect();
 
 async function createUser(username: string, email: string, password: string) {
   const existingUserByEmail = await Users.findOne({ email });
-  
+
   const existingUserByUsername = await Users.findOne({ username });
 
   if (existingUserByEmail) {

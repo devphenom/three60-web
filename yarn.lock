@@ -7624,7 +7624,7 @@ __metadata:
     mongodb: ^5.5.0
     mongoose: ^7.1.0
     next: 12.3.0
-    next-auth: ^4.22.1
+    next-auth: ^4.15.1
     react: 18.2.0
     react-dom: 18.2.0
     react-google-login: ^5.2.2
@@ -7674,7 +7674,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"next-auth@npm:^4.22.1":
+"next-auth@npm:^4.15.1":
   version: 4.22.1
   resolution: "next-auth@npm:4.22.1"
   dependencies:

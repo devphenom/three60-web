@@ -35,7 +35,9 @@
       "@features": ["features"],
       "@features/*": ["features/*"],
       "@libs": ["libs"],
-      "@libs/*": ["libs/*"]
+      "@libs/*": ["libs/*"],
+      "@api": ["pages/api"],
+      "@api/*": ["pages/api/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src", "theme"],
