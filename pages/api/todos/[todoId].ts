@@ -1,81 +1,33 @@
-import axios from 'axios';
 import { NextApiRequest, NextApiResponse } from 'next';
 
-import Todos from '@libs/schema/todos';
-import clientPromise from '@libs/mongo-db';
-import { TODO_STATUS } from '@features/todos/todo-services/todo-utils';
+import { verifyToken } from '@utils/functions';
+import { handleInvalidMethod } from '@utils/error-handler';
+import {
+  deleteOneTodo_handler,
+  getOneTodo_handler,
+  updateOneTodo_handler,
+} from '@todos/services/todo-handler';
 
-export default async function todo(req: NextApiRequest, res: NextApiResponse) {
-  const { method, query, body } = req;
+export default async function oneTodo(
+  req: NextApiRequest,
+  res: NextApiResponse,
+) {
+  const token = req.headers['x-access-token'];
 
-  await clientPromise();
+  const { userInfo } = verifyToken(token as string, res);
 
-  switch (method) {
+  switch (req.method) {
     case 'GET':
-      try {
-        let todo = await Todos.findOne({ _id: query.todoId });
-
-        res.status(200).send(todo);
-      } catch (error: any) {
-        const payload = {
-          message: error.message,
-        };
-        res.status(400).send(payload);
-      }
+      getOneTodo_handler(req, res);
       break;
-
-    case 'PUT':
-      try {
-        let todo = await Todos.findOne({ _id: query.todoId });
-        const { _id, createdAt, updatedAt, ...rest } = body;
-
-        Object.keys(rest).forEach((key) => {
-          todo[key] = rest[key];
-        });
-
-        await todo.save();
-
-        // get updated counts
-        const response = await axios.get(
-          'http://localhost:3000/api/todos/counts',
-        );
-
-        const payload = {
-          todo,
-          counts: response.data.count,
-        };
-
-        res.status(200).send(payload);
-      } catch (error: any) {
-        const payload = {
-          message: error.message,
-        };
-        res.status(400).send(payload);
-      }
+    case 'PATCH':
+      updateOneTodo_handler(req, res);
       break;
     case 'DELETE':
-      try {
-        let todo = await Todos.findOne({ _id: query.todoId });
-
-        todo.status = TODO_STATUS.TRASH.value;
-        await todo.save();
-
-        // get updated counts
-        const response = await axios.get(
-          'http://localhost:3000/api/todos/counts',
-        );
-
-        const payload = {
-          message: 'Success',
-          counts: response.data.count,
-        };
-        res.status(200).send(payload);
-      } catch (error: any) {
-        const payload = {
-          message: error.message,
-        };
-        res.status(400).send(payload);
-      }
+      deleteOneTodo_handler(req, res);
+      break;
+    default:
+      handleInvalidMethod(res);
       break;
   }
 }

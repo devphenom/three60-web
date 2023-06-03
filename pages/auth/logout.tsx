@@ -1,14 +1,13 @@
-import { signOut } from 'next-auth/react';
 import React, { useContext, useEffect } from 'react';
-import { AuthContext } from '../_app';
+import { useAppDispatch } from '@redux/hooks';
+import { logout } from '@auth/redux/auth-slice';
 
 function Logout() {
-  const { status } = useContext(AuthContext);
-
+  const dispatch = useAppDispatch();
   useEffect(() => {
-    signOut({ callbackUrl: `/` });
+    dispatch(logout());
     // eslint-disable-next-line
-  }, [status]);
+  }, []);
 
   return <></>;
 }

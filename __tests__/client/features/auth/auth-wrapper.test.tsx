@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import AuthWrapper from '../../../../features/auth/auth-wrapper/auth-wrapper';
+import AuthWrapper from '@auth/components/auth-wrapper/auth-wrapper';
 
 describe('Auth Wrapper', () => {
   it('should render auth wrapper with logo', () => {

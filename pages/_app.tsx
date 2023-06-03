@@ -2,59 +2,44 @@ import { Provider } from 'react-redux';
 import type { AppProps } from 'next/app';
 import { ChakraProvider } from '@chakra-ui/react';
 import { GoogleOAuthProvider } from '@react-oauth/google';
-import { SessionProvider, useSession } from 'next-auth/react';
 import store from '@redux/store';
 
 import '@styles/globals.css';
-import { LoadingStateSpinner } from '@components/global';
-import { Session } from 'next-auth';
-import { createContext } from 'react';
 import theme from '../theme';
+import { isAuth, tokenVar } from '@auth/services/auth-utils';
+import { useAppDispatch } from '@redux/hooks';
+import { useEffect } from 'react';
+import { setAuth } from '@auth/redux/auth-slice';
 
-function MyApp({
-  Component,
-  pageProps: { session, ...pageProps },
-}: AppProps<{ session: Session }>) {  return (
-    <SessionProvider session={session}>
-      <Provider store={store}>
-        <AuthWrapper>
-          <ChakraProvider theme={theme}>
-            <GoogleOAuthProvider
-              clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || ''}
-            >
-              <Component {...pageProps} />
-            </GoogleOAuthProvider>
-          </ChakraProvider>
-        </AuthWrapper>
-      </Provider>
-    </SessionProvider>
+function MyApp({ Component, pageProps }: AppProps) {
+  return (
+    <Provider store={store}>
+      <ChakraProvider theme={theme}>
+        <GoogleOAuthProvider
+          clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || ''}
+        >
+          <ExtendComponent Component={Component} pageProps={pageProps} />
+        </GoogleOAuthProvider>
+      </ChakraProvider>
+    </Provider>
   );
 }
 
-interface AuthProps {
-  children: React.ReactElement;
-}
+const ExtendComponent = ({ Component, pageProps }: any) => {
+  const token = tokenVar();
+  const dispatch = useAppDispatch();
 
-interface IAuthContext {
-  status: 'loading' | 'authenticated' | 'unauthenticated';
-  session: Session | null;
-}
-export const AuthContext = createContext({} as IAuthContext);
-
-export const AuthWrapper = ({
-  children,
-}: AuthProps): React.ReactElement | null => {
-  // if `{ required: true }` is supplied, `status` can only be "loading" or "authenticated"
-  const { status, data } = useSession();
-
-  if (status === 'loading') {
-    return <LoadingStateSpinner />;
-  }
+  useEffect(() => {
+    if (!!isAuth()) {
+      dispatch(setAuth(token || ''));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
-    <AuthContext.Provider value={{ status, session: data }}>
-      {children}
-    </AuthContext.Provider>
+    <>
+      <Component {...pageProps} />
+    </>
   );
 };
 

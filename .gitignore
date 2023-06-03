@@ -41,6 +41,7 @@ old
 .yarn/*.gz
 
 ### VisualStudioCode ###
+.vscode
 .vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json

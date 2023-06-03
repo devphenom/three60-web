@@ -1,68 +1,30 @@
+import { verifyToken } from '@utils/functions';
 import { NextApiRequest, NextApiResponse } from 'next';
-import clientPromise from '@libs/mongo-db';
-import Todos from '@libs/schema/todos';
-import { getServerSession } from 'next-auth/next';
-import { authOptions } from '../auth/[...nextauth]';
+import { handleInvalidMethod } from '@utils/error-handler';
+import {
+  createTodo_handler,
+  getTodo_handler,
+} from '@todos/services/todo-handler';
 
-import axios from 'axios';
-
-export default async function todoHandler(
+export default async function register(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
-  const { method, query } = req;
-  const { userId, status } = query;
+  const token = req.headers['x-access-token'];
 
-  const session = await getServerSession(req, res, authOptions);
-  console.log('session', session);
+  const { userInfo } = verifyToken(token as string, res);
 
-  // if (!session) {
-  //   res.status(400).send({ message: 'Unauthorized' });
-  // }
-  await clientPromise();
-
-  switch (method) {
+  switch (req.method) {
     case 'GET':
-      try {
-        let result: any = await Todos.find({ userId });
-
-        result = JSON.parse(JSON.stringify(result));
-
-        const todos = result.filter((todo: any) => {
-          todo._id = todo._id.toString();
-          return todo;
-        });
-
-        // get updated counts
-        const response = await axios.get(
-          'http://localhost:3000/api/todos/counts',
-        );
-
-        const payload = {
-          todos,
-          counts: response.data.count,
-        };
-
-        res.status(200).send(payload);
-      } catch (error: any) {
-        const payload = {
-          message: error.message,
-        };
-        res.status(400).send(payload);
-      }
+      getTodo_handler(req, res, userInfo);
       break;
-    case 'POST':
-      try {
-        const { title, description } = req.body;
-        const createdTodo = await Todos.create({ title, description });
-        const payload = {
-          data: createdTodo,
-        };
 
-        res.status(200).send(payload);
-      } catch (error) {
-        res.status(400).send(error);
-      }
+    case 'POST':
+      createTodo_handler(req, res, userInfo);
+      break;
+
+    default:
+      handleInvalidMethod(res);
       break;
   }
 }
