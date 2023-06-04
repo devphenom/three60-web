@@ -37,9 +37,9 @@ const NavbarContainer = styled(Stack)`
 
 const TodoNavbar = () => {
   const dispatch = useAppDispatch();
-  const { isLoading } = useGetTodoCountsQuery();
+  const { isLoading, data } = useGetTodoCountsQuery();
 
-  const { todoCounts, currentStatus } = useAppSelector((state) => state.todo);
+  const { currentStatus } = useAppSelector((state) => state.todo);
 
   return (
     <Box
@@ -56,7 +56,7 @@ const TodoNavbar = () => {
           overflow={'scroll'}
           gap={3}
         >
-          {todoCounts?.map((option) => (
+          {data?.result?.map((option) => (
             <StackItem
               h="full"
               onClick={() => dispatch(setCurrentStatus(option))}

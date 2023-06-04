@@ -6,9 +6,11 @@ export const todoApi = api.injectEndpoints({
   endpoints: (build) => ({
     getTodoCounts: build.query<{ result: ITodoStatus[] }, void>({
       query: () => '/todos/counts',
+      providesTags: ['Todos'],
     }),
     getTodos: build.query<{ todos: ITodo[] }, number>({
       query: (status) => `/todos?statusId=${status}`,
+      providesTags: ['Todos'],
     }),
     postTodo: build.mutation<void, FormikValues>({
       query: (body) => {
@@ -18,32 +20,8 @@ export const todoApi = api.injectEndpoints({
           body,
         };
       },
+      invalidatesTags: ['Todos'],
     }),
-    // getPost: build.query<Post, number>({
-    //   query: (id) => `posts/${id}`,
-    //   providesTags: (_result, _err, id) => [{ type: 'Posts', id }],
-    // }),
-
-    // updatePost: build.mutation<Post, Partial<Post>>({
-    //   query(data) {
-    //     const { id, ...body } = data;
-    //     return {
-    //       url: `posts/${id}`,
-    //       method: 'PUT',
-    //       body,
-    //     };
-    //   },
-    //   invalidatesTags: (post) => [{ type: 'Posts', id: post?.id }],
-    // }),
-    // deletePost: build.mutation<{ success: boolean; id: number }, number>({
-    //   query(id) {
-    //     return {
-    //       url: `posts/${id}`,
-    //       method: 'DELETE',
-    //     };
-    //   },
-    //   invalidatesTags: (post) => [{ type: 'Posts', id: post?.id }],
-    // }),
   }),
 });
 

@@ -21,7 +21,7 @@ async function getTodo_handler(
       userId: user._id,
 
       ...(!!Number(statusId) ? { statusId: statusId } : {}),
-    });
+    }).sort({ createdAt: -1 });
 
     results = JSON.parse(JSON.stringify(results));
 
@@ -128,18 +128,23 @@ async function todoCounts_handler(
       { $match: { userId: userInfo._id } },
       {
         $group: {
-          _id: '$status',
+          _id: '$statusId',
           count: { $sum: 1 },
         },
       },
     ]);
-    aggregate = aggregate.map((arr) => ({ ...arr._id, count: arr.count }));
+
+    aggregate = aggregate.map((arr) => ({ id: arr._id, count: arr.count }));
 
     const result = JSON.parse(JSON.stringify(status)).map(
-      (item: ITodoStatus) => ({
-        ...item,
-        count: aggregate.filter(({ id }) => id === item.id)?.[0]?.count ?? 0,
-      }),
+      (item: ITodoStatus) => {
+        const count = aggregate.filter(({ id }) => id === item.id)?.[0]?.count;
+
+        return {
+          ...item,
+          count: count ?? 0,
+        };
+      },
     );
 
     const allTodos = {
@@ -152,6 +157,7 @@ async function todoCounts_handler(
 
     res.status(200).send({ result: [allTodos, ...result] });
   } catch (error) {
+    console.log(error);
     handleAnErrorOccurred(res);
   }
 }
