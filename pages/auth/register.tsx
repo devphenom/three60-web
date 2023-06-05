@@ -1,6 +1,6 @@
 import React from 'react';
-import AuthWrapper from '@features/auth/auth-wrapper/auth-wrapper';
-import RegisterComponent from '@features/auth/register/register';
+import AuthWrapper from '@auth/components/auth-wrapper/auth-wrapper';
+import RegisterComponent from '@auth/components/register/register';
 
 type Props = {};
 

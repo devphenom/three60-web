@@ -7,10 +7,10 @@ import { isLoading } from '@utils/functions';
 import CreateTodo from './create-todo/create-todo';
 import TodoNavbar from './todo-navbar/todo-navbar';
 import TodosListing from './todos-listing/todos-listing';
-import { getAllTodosAction } from '@redux/features/todo/todo-actions';
+import { getAllTodosAction } from '@features/todos/redux/todo-actions';
 import { useAppDispatch, useAppSelector } from '@redux/hooks';
-import EmptyTodo from './empty-todo/empty-todo';
-import { ITodoCount } from '@components/todos/todo-services/types';
+import EmptyTodo from '../../features/todos/components/empty-todo/empty-todo';
+import { ITodoCount } from '@features/todos/services/todo-utils';
 
 type Props = {};
 

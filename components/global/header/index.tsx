@@ -7,6 +7,7 @@ export const Header: React.FC = () => {
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
     setValue(e.currentTarget.value);
   };
+
   return (
     <Box>
       <Show below="md">

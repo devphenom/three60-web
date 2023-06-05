@@ -1,35 +1,31 @@
 import { NextComponentType } from 'next';
 import { useRouter } from 'next/router';
 import { useContext, useEffect, useState } from 'react';
-import { isAuth } from '../../utils/auth';
 import { LoadingStateSpinner } from '@global';
-import { AuthContext } from '../../pages/_app';
+import { isAuth } from '@auth/services/auth-utils';
+import { useAppSelector } from '@redux/hooks';
 
 const withAuth = (Component: NextComponentType) => {
   const AuthenticatedComponent = () => {
     const router = useRouter();
-    const { session } = useContext(AuthContext);
 
-    const handleRender = () => {
-      if (!session) {
+    const [isLoading, setIsLoading] = useState(true);
+
+    const { token } = useAppSelector((state) => state.user);
+
+    useEffect(() => {
+      if (!isAuth()) {
         const returnUrl = router.asPath;
-
-        process.browser &&
-          router.push(
-            `/auth/signin?returnUrl=${encodeURIComponent(returnUrl)}`,
-          );
-
-        return null;
+        router.push(`/auth/signin?returnUrl=${encodeURIComponent(returnUrl)}`);
       }
+      setIsLoading(false);
+    }, [isLoading, router, token]);
 
-      if (session) {
-        return <Component />;
-      }
+    if (!isLoading && token) {
+      return <Component />;
+    }
 
-      return <LoadingStateSpinner />;
-    };
-
-    return <>{handleRender()}</>;
+    return <LoadingStateSpinner />;
   };
 
   // AuthenticatedComponent.getServerSideProps = async () => {
