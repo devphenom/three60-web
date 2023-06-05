@@ -5,7 +5,6 @@ import { GoogleOAuthProvider } from '@react-oauth/google';
 import React, { ReactElement, ReactNode } from 'react';
 import { render, RenderOptions } from '@testing-library/react';
 import theme from '../theme/index';
-import { AuthWrapper } from '../pages/_app';
 
 interface MountOptions extends Omit<RenderOptions, 'wrapper'> {
   session?: any; // Update the type as per your session data structure
@@ -35,7 +34,6 @@ const AllTheProviders = ({
   return (
     <>
       <Provider store={store}>
-        <AuthWrapper>
           <ChakraProvider theme={theme}>
             <GoogleOAuthProvider
               clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || ''}
@@ -43,7 +41,6 @@ const AllTheProviders = ({
               {children}
             </GoogleOAuthProvider>
           </ChakraProvider>
-        </AuthWrapper>
       </Provider>
     </>
   );
