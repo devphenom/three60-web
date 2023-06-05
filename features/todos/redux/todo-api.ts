@@ -22,8 +22,26 @@ export const todoApi = api.injectEndpoints({
       },
       invalidatesTags: ['Todos'],
     }),
+    updateTodo: build.mutation<void, FormikValues>({
+      query: (body) => {
+        return {
+          url: `/todos/${body._id}`,
+          method: 'PATCH',
+          body,
+        };
+      },
+      invalidatesTags: ['Todos'],
+    }),
+    getTodoStatus: build.query<{status: ITodoStatus[]}, void>({
+      query: () => '/todos/status',
+    }),
   }),
 });
 
-export const { useGetTodoCountsQuery, useGetTodosQuery, usePostTodoMutation } =
-  todoApi;
+export const {
+  useGetTodoCountsQuery,
+  useGetTodosQuery,
+  usePostTodoMutation,
+  useUpdateTodoMutation,
+  useGetTodoStatusQuery,
+} = todoApi;

@@ -40,7 +40,7 @@ const todoSlice = createSlice({
       todoApi.endpoints.getTodoCounts.matchFulfilled,
       (state, action) => {
         state.todoCounts = action.payload.result;
-        state.currentStatus = action.payload.result[0];
+        // state.currentStatus = action.payload.result[0];
       },
     );
 

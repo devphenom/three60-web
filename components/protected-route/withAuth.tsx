@@ -21,7 +21,7 @@ const withAuth = (Component: NextComponentType) => {
       setIsLoading(false);
     }, [isLoading, router, token]);
 
-    if (!isLoading && isAuth()) {
+    if (!isLoading && token) {
       return <Component />;
     }
 

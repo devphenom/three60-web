@@ -17,6 +17,7 @@ import { useAppDispatch } from '@redux/hooks';
 
 import TodoForm from '../todo-form/todo-form';
 import { usePostTodoMutation } from '@todos/redux/todo-api';
+import TodoFormModal from '../todo-form-modal/todo-form-modal';
 
 type Props = {};
 
@@ -46,20 +47,12 @@ const CreateTodo = (props: Props) => {
           Create Task
         </Button>
       </Container>
-      <Modal isOpen={isOpen} onClose={onClose} size="xs">
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>Create Todo</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
-            <TodoForm
-              onSubmit={onSubmit}
-              onClose={onClose}
-              isLoading={isLoading}
-            />
-          </ModalBody>
-        </ModalContent>
-      </Modal>
+      <TodoFormModal
+        isOpen={isOpen}
+        onClose={onClose}
+        onSubmit={onSubmit}
+        isSubmitting={isLoading}
+      />
     </>
   );
 };

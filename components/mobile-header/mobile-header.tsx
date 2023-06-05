@@ -19,6 +19,7 @@ import {
 } from '@chakra-ui/react';
 import { NAV_ITEMS } from '@utils/navItems';
 import { Logo, NavLink } from '@global';
+import AuthHeader from '../auth-header/auth-header';
 
 type Props = {
   value: string;
@@ -44,7 +45,7 @@ const MobileHeader = ({ value, handleChange }: Props) => {
         />
       </Flex>
 
-      <Drawer placement="top" onClose={onClose} isOpen={isOpen}>
+      <Drawer onClose={onClose} isOpen={isOpen}>
         <DrawerOverlay />
         <DrawerContent p={0}>
           <DrawerHeader>
@@ -81,7 +82,9 @@ const MobileHeader = ({ value, handleChange }: Props) => {
                 ))}
               </UnorderedList>
 
-              <InputGroup px={4}>
+              <AuthHeader />
+
+              {/* <InputGroup px={4}>
                 <InputLeftAddon
                   borderTopLeftRadius={'50px'}
                   borderBottomLeftRadius="50px"
@@ -98,7 +101,7 @@ const MobileHeader = ({ value, handleChange }: Props) => {
                   borderBottomRightRadius="50px"
                   placeholder="search terms"
                 />
-              </InputGroup>
+              </InputGroup> */}
             </Box>
           </DrawerBody>
         </DrawerContent>

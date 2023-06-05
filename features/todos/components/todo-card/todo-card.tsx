@@ -12,10 +12,15 @@ import React from 'react';
 
 import { Button } from '@global';
 import { DeleteIcon, EditIcon, EllipsesIcon, MarkCompleteIcon } from '@icons';
-import { ITodo } from '@todos/services/todo-types';
-import { formatEventTime, formatFullDate } from '@utils/functions';
 
-type Props = { item: ITodo };
+import {
+  useGetTodoStatusQuery,
+  useUpdateTodoMutation,
+} from '@todos/redux/todo-api';
+import EditTodo from '../edit-todo/edit-todo';
+import {  ITodoStatus, TTodoCardProps } from '@todos/services/todo-types';
+import { statusBtnColorScheme } from '@todos/services/todo-utils';
+import { formatEventTime, formatFullDate } from '@utils/functions';
 
 const menuItemProps = {
   p: 6,
@@ -25,7 +30,10 @@ const menuItemProps = {
   iconSpacing: 4,
 };
 
-const TodoCard = ({ item }: Props) => {
+const TodoCard = ({ item }: TTodoCardProps) => {
+  const [updateTodo, { isLoading }] = useUpdateTodoMutation();
+  const { data } = useGetTodoStatusQuery();
+
   return (
     <Container
       boxShadow="0px 1px 4px rgba(0, 0, 0, 0.1)"
@@ -49,41 +57,71 @@ const TodoCard = ({ item }: Props) => {
         <Menu>
           <MenuButton
             as={Button}
-            colorScheme="secondary"
             variant="ghost"
             borderRadius={'100px'}
             minW="97px"
+            isDisabled={isLoading}
+            colorScheme={statusBtnColorScheme[item.statusId]}
           >
             {item?.status?.description}
           </MenuButton>
           <MenuList>
-            <MenuItem>In Progress</MenuItem>
-            <MenuItem>Overdue</MenuItem>
-            <MenuItem>Complete</MenuItem>
-            <MenuItem>Trash</MenuItem>
+            {data?.status
+              ?.filter(({ id }) => id !== item.statusId)
+              .map((status: ITodoStatus) => {
+                return (
+                  <MenuItem
+                    onClick={() => updateTodo({ ...item, statusId: status.id })}
+                    key={status.id}
+                  >
+                    {status.description}
+                  </MenuItem>
+                );
+              })}
           </MenuList>
         </Menu>
 
-        <Menu>
-          <MenuButton>
-            <EllipsesIcon />
-          </MenuButton>
-          <MenuList>
-            <MenuItem
-              {...menuItemProps}
-              onClick={() => console.log('marked')}
-              leftIcon={<MarkCompleteIcon />}
-            >
-              Mark as Complete
-            </MenuItem>
-            <MenuItem leftIcon={<EditIcon />} {...menuItemProps}>
-              Edit
-            </MenuItem>
-            <MenuItem {...menuItemProps} leftIcon={<DeleteIcon />}>
-              Delete
-            </MenuItem>
-          </MenuList>
-        </Menu>
+        {item.statusId !== 5 && (
+          <Menu>
+            <MenuButton>
+              <EllipsesIcon />
+            </MenuButton>
+            <MenuList>
+              {item.statusId !== 3 && (
+                <MenuItem
+                  {...menuItemProps}
+                  onClick={() => updateTodo({ ...item, statusId: 3 })}
+                  leftIcon={<MarkCompleteIcon />}
+                >
+                  Mark as Complete
+                </MenuItem>
+              )}
+              {item.statusId !== 3 && (
+                <EditTodo item={item}>
+                  {(onOpen: () => void) => (
+                    <>
+                      <MenuItem
+                        onClick={onOpen}
+                        leftIcon={<EditIcon />}
+                        {...menuItemProps}
+                      >
+                        Edit
+                      </MenuItem>
+                    </>
+                  )}
+                </EditTodo>
+              )}
+
+              <MenuItem
+                {...menuItemProps}
+                leftIcon={<DeleteIcon />}
+                onClick={() => updateTodo({ ...item, statusId: 5 })}
+              >
+                Delete
+              </MenuItem>
+            </MenuList>
+          </Menu>
+        )}
       </Flex>
     </Container>
   );

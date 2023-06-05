@@ -1,3 +1,5 @@
+import { FormikValues } from 'formik';
+
 export type TodoStatus =
   | 'BACKLOG'
   | 'INPROGRESS'
@@ -28,8 +30,30 @@ export interface ITodo {
 export interface ITodoForm {
   title: string;
   description: string;
-  status: TodoStatus;
 }
+
+export type TTodoFormModalProps = {
+  isOpen: boolean;
+  onClose: () => void;
+  onSubmit: (event: FormikValues) => void;
+  initialValues?: ITodoForm;
+  isSubmitting: boolean;
+};
+
+export type TTodoFormProps = {
+  onClose: () => void;
+  onSubmit: (x: FormikValues) => void;
+  isLoading?: boolean;
+  onCancel?: () => void;
+  initialValues?: ITodoForm;
+};
+
+export interface IEditTodoProps {
+  children?: any;
+  item: ITodo;
+}
+
+export type TTodoCardProps = { item: ITodo };
 
 // export interface ITodoCount
 

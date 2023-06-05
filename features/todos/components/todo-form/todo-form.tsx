@@ -1,23 +1,34 @@
 import { Box, HStack } from '@chakra-ui/react';
 import { Formik, FormikValues } from 'formik';
-import React from 'react';
+import { useEffect, useState } from 'react';
 import { FormInput, FormTextarea } from '@components';
 import { Button } from '@global';
 import { TODO_FORM_VALIDATION_SCHEMA } from '../../services/todo-form-validation';
+import { ITodoForm, TTodoFormProps } from '@todos/services/todo-types';
 
-type Props = {
-  onClose: () => void;
-  onSubmit: (x: FormikValues) => void;
-  isLoading?: boolean;
-  onCancel?: () => void;
-};
+const TodoForm = ({
+  onClose,
+  isLoading,
+  onSubmit,
+  onCancel,
+  initialValues,
+}: TTodoFormProps) => {
+  const [formValues, setFormValues] = useState<ITodoForm>({
+    title: '',
+    description: '',
+  });
 
-const TodoForm = ({ onClose, isLoading, onSubmit, onCancel }: Props) => {
+  useEffect(() => {
+    if (initialValues) {
+      setFormValues(initialValues);
+    }
+  }, [initialValues]);
+
   return (
     <Formik
       enableReinitialize
       validationSchema={TODO_FORM_VALIDATION_SCHEMA}
-      initialValues={{ title: '', description: '' }}
+      initialValues={formValues}
       onSubmit={onSubmit}
     >
       {({ values, handleChange, errors, touched, handleSubmit }) => {

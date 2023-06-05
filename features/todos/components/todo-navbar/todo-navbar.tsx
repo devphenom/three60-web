@@ -1,31 +1,21 @@
 import styled from '@emotion/styled';
-import {
-  Box,
-  Circle,
-  Flex,
-  Skeleton,
-  Stack,
-  StackItem,
-} from '@chakra-ui/react';
+import { Box, Circle, Skeleton, Stack, StackItem } from '@chakra-ui/react';
 
 import { toSentence } from '@utils/functions';
 import { useAppDispatch, useAppSelector } from '@redux/hooks';
 import { ITodoStatus } from '@todos/services/todo-types';
 import { useGetTodoCountsQuery } from '@todos/redux/todo-api';
 import { setCurrentStatus } from '@todos/redux/todo-slice';
+import { Button } from '@global';
+import { statusBtnColorScheme } from '@todos/services/todo-utils';
 
-type Props = {
-  currentState?: ITodoStatus;
-  updateCurrentState?: (val: ITodoStatus) => void;
-};
-
-const StyledFlex = styled(Flex)`
+const StyledButton = styled(Button)`
+  border-radius: 0;
+  padding-inline: 8px;
+  display: flex;
+  align-items: center;
   &.active {
-    .circle {
-      background: rgba(70, 115, 228, 0.18);
-    }
-    color: var(--brand-500);
-    border-bottom: 1px solid var(--brand-500);
+    border-bottom: 2px solid var(--brand-500);
   }
 `;
 
@@ -62,10 +52,10 @@ const TodoNavbar = () => {
               onClick={() => dispatch(setCurrentStatus(option))}
               key={option.id}
             >
-              <StyledFlex
-                h="full"
-                as="button"
-                align={'center'}
+              <StyledButton
+                height="full"
+                variant="link"
+                colorScheme={statusBtnColorScheme[option.id]}
                 gap={3}
                 className={option.id === currentStatus?.id ? 'active' : ''}
               >
@@ -73,7 +63,7 @@ const TodoNavbar = () => {
                   {option.count}
                 </Circle>
                 {toSentence(option.description)}
-              </StyledFlex>
+              </StyledButton>
             </StackItem>
           ))}
         </NavbarContainer>

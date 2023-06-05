@@ -6,13 +6,22 @@ import { useGetTodosQuery } from '@todos/redux/todo-api';
 import { LoadingStateSpinner } from '@global';
 import EmptyTodo from '@todos/components/empty-todo/empty-todo';
 import { ITodo } from '@todos/services/todo-types';
+import TodoCardSkeleton from '../todo-card-skeleton/todo-card-skeleton';
 
 const TodosListing = () => {
   const { currentStatus } = useAppSelector((state) => state.todo);
   const { data, isLoading, isError } = useGetTodosQuery(currentStatus.id ?? 0);
 
   if (isLoading) {
-    return <LoadingStateSpinner />;
+    return (
+      <>
+        {Array(8)
+          .fill(1)
+          .map((item, i) => (
+            <TodoCardSkeleton key={i} />
+          ))}
+      </>
+    );
   }
 
   if (!data?.todos?.length) {
