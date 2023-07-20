@@ -17,10 +17,32 @@ import colors from './foundations/colors';
  * please visit https://chakra-ui.com/docs/getting-started#add-custom-theme-optional
  */
 
+const components = {
+  // Drawer variant to allow pointer events to the underlying content
+  Drawer: {
+    variants: {
+      alwaysOpen: {
+        overlay: {
+          pointerEvents: 'none',
+          background: 'transparent',
+        },
+        dialogContainer: {
+          pointerEvents: 'none',
+          background: 'transparent',
+        },
+        dialog: {
+          pointerEvents: 'auto',
+        },
+      },
+    },
+  },
+};
+
 const overrides = {
   ...styles,
   colors,
   // fontSizes,
+  components,
   fonts: {
     heading: `Rubik, ${base.fonts?.heading}`,
     body: `Rubik, ${base.fonts?.body}`,

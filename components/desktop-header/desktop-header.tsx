@@ -13,11 +13,11 @@ import { NAV_ITEMS } from '@utils/navItems';
 import { Search2Icon } from '@chakra-ui/icons';
 
 type Props = {
-  value: string;
+  searchTerm: string;
   handleChange: (e: React.FormEvent<HTMLInputElement>) => void;
 };
 
-const DesktopHeader = ({ value, handleChange }: Props) => {
+const DesktopHeader = ({ searchTerm, handleChange }: Props) => {
   return (
     <Box width="full" px={3} pt={3} boxShadow="0px 0px 4px rgba(0, 0, 0, 0.1);">
       <Flex justify="space-between" align="center">
@@ -49,7 +49,7 @@ const DesktopHeader = ({ value, handleChange }: Props) => {
           </InputLeftAddon>
           <Input
             name="search"
-            value={value}
+            value={searchTerm}
             onChange={handleChange}
             borderTopRightRadius="50px"
             borderBottomRightRadius="50px"

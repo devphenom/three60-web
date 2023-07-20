@@ -2,7 +2,7 @@ import { fireEvent, screen } from '@testing-library/react';
 import { act } from 'react-dom/test-utils';
 import useLazyAxios from '@hooks/use-axios/use-axios';
 import { testMount } from '@utils/testMount';
-import SignIn from '@features/auth/sign-in/sign-in';
+import SignIn from '@features/auth/components/auth-wrapper/sign-in/sign-in';
 
 jest.mock('@hooks/use-axios/use-axios');
 
