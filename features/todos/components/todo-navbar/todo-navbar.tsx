@@ -17,6 +17,9 @@ const StyledButton = styled(Button)`
   &.active {
     border-bottom: 2px solid var(--brand-500);
   }
+  &:hover {
+    background-color: transparent;
+  }
 `;
 
 const NavbarContainer = styled(Stack)`
@@ -54,7 +57,7 @@ const TodoNavbar = () => {
             >
               <StyledButton
                 height="full"
-                variant="link"
+                variant="ghost"
                 colorScheme={statusBtnColorScheme[option.id]}
                 gap={3}
                 className={option.id === currentStatus?.id ? 'active' : ''}

@@ -6,7 +6,7 @@ if (!process.env.MONGODB_URI) {
 }
 
 const uri: string = process.env.MONGODB_URI;
-const clientPromise = async () => mongoose.connect(uri);
+const clientPromise = async () => await mongoose.connect(uri);
 
 export default clientPromise;
 // export default clientPromise;

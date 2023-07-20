@@ -13,14 +13,23 @@ async function getTodo_handler(
   res: NextApiResponse,
   user: UserTokenData,
 ) {
-  const { statusId } = req.query;
+  const { statusId, searchTerm } = req.query;
 
   try {
     await clientPromise();
+
     let results: ITodo[] = await Todos.find({
       userId: user._id,
 
       ...(!!Number(statusId) ? { statusId: statusId } : {}),
+      ...(String(searchTerm).length > 0
+        ? {
+            $or: [
+              { title: { $regex: searchTerm, $options: 'i' } },
+              { description: { $regex: searchTerm, $options: 'i' } },
+            ],
+          }
+        : {}),
     }).sort({ createdAt: -1 });
 
     results = JSON.parse(JSON.stringify(results));

@@ -1,6 +1,6 @@
 import { Show } from '@chakra-ui/react';
 import MobileAuthHeader from '../mobile-auth-header/mobile-auth-header';
-import DektopAuthHeader from '../desktop-auth-header/desktop-auth-header';
+import DesktopAuthHeader from '../desktop-auth-header/desktop-auth-header';
 
 const AuthHeader = () => {
   return (
@@ -10,7 +10,7 @@ const AuthHeader = () => {
       </Show>
 
       <Show above="md">
-        <DektopAuthHeader />
+        <DesktopAuthHeader />
       </Show>
     </>
   );

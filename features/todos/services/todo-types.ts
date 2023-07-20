@@ -55,6 +55,12 @@ export interface IEditTodoProps {
 
 export type TTodoCardProps = { item: ITodo };
 
+export interface ITodoReducer {
+  todoCounts: null | ITodoStatus[];
+  currentStatus: Partial<ITodoStatus>;
+  searchTerm: string
+}
+
 // export interface ITodoCount
 
 // export interface ITodoState {

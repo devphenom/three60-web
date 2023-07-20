@@ -3205,6 +3205,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@phosphor-icons/react@npm:^2.0.10":
+  version: 2.0.10
+  resolution: "@phosphor-icons/react@npm:2.0.10"
+  peerDependencies:
+    react: ">= 16.8"
+    react-dom: ">= 16.8"
+  checksum: 534b167fe366f400b703cf937dc76f00ee089c32c847dbdb6d51ea2505f3262e636c1bb98f0b12eede21f785d96c716bd1ce08a6cdce328e940aa6d5b1d846b5
+  languageName: node
+  linkType: hard
+
 "@popperjs/core@npm:^2.9.3":
   version: 2.11.6
   resolution: "@popperjs/core@npm:2.11.6"
@@ -7619,6 +7629,7 @@ __metadata:
     "@chakra-ui/react": ^2.3.2
     "@emotion/react": ^11.10.4
     "@emotion/styled": ^11.10.4
+    "@phosphor-icons/react": ^2.0.10
     "@react-oauth/google": ^0.5.1
     "@reduxjs/toolkit": ^1.8.6
     "@shelf/jest-mongodb": ^4.1.7
@@ -7640,6 +7651,7 @@ __metadata:
     jest: ^29.3.1
     jest-environment-jsdom: ^29.3.1
     jsonwebtoken: ^9.0.0
+    lodash: ^4.17.21
     mongodb: ^5.5.0
     mongoose: ^7.1.0
     next: 12.3.0

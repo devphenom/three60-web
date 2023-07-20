@@ -1,7 +1,7 @@
 import React from 'react';
 
-const DektopAuthHeader = () => {
-  return <div>DektopAuthHeader</div>;
+const DesktopAuthHeader = () => {
+  return <div>DesktopAuthHeader</div>;
 };
 
-export default DektopAuthHeader;
+export default DesktopAuthHeader;

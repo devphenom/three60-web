@@ -14,7 +14,7 @@ type Props = {};
 const TodosWrapper = (props: Props) => {
   const { currentStatus } = useAppSelector((state) => state.todo);
   return (
-    <Box overflow={'hidden'} bg="var(--brand-bg)">
+    <Box overflow='hidden' bg="var(--brand-bg)">
       <Header />
       <CreateTodo />
       <TodoNavbar />

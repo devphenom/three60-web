@@ -10,10 +10,9 @@ import {
   Flex,
   IconButton,
   Image,
-  Input,
-  InputGroup,
-  InputLeftAddon,
   ListItem,
+  Stack,
+  HStack,
   UnorderedList,
   useDisclosure,
 } from '@chakra-ui/react';
@@ -21,13 +20,21 @@ import { NAV_ITEMS } from '@utils/navItems';
 import { Logo, NavLink } from '@global';
 import AuthHeader from '../auth-header/auth-header';
 
+import GenericSearchDrawer from '../generic-search-drawer/generic-search-drawer';
+import { MagnifyingGlass } from '@phosphor-icons/react';
+
 type Props = {
-  value: string;
+  searchTerm: string;
   handleChange: (e: React.FormEvent<HTMLInputElement>) => void;
 };
 
-const MobileHeader = ({ value, handleChange }: Props) => {
+const MobileHeader = ({ searchTerm, handleChange }: Props) => {
   const { onClose, isOpen, onOpen } = useDisclosure();
+
+  const {
+    onOpen: onSearchOpen,
+    ...rest
+  } = useDisclosure();
 
   return (
     <Container
@@ -36,15 +43,25 @@ const MobileHeader = ({ value, handleChange }: Props) => {
       boxShadow="0px 0px 4px rgba(0, 0, 0, 0.1);"
       bg="whiteAlpha.900"
     >
-      <Flex justify={'space-between'} align="center">
+      <HStack justify="space-between" align="center">
         <Logo />
-        <IconButton
-          onClick={onOpen}
-          aria-label="hamburger icon"
-          icon={<HamburgerIcon />}
-        />
-      </Flex>
+        <HStack>
+          <IconButton
+            variant="ghost"
+            onClick={onSearchOpen}
+            aria-label="search icon"
+            icon={<MagnifyingGlass size={16} />}
+          />
+          <IconButton
+            variant="ghost"
+            onClick={onOpen}
+            aria-label="hamburger icon"
+            icon={<HamburgerIcon />}
+          />
+        </HStack>
+      </HStack>
 
+      <GenericSearchDrawer searchTerm={searchTerm} handleChange={handleChange} {...rest} />
       <Drawer onClose={onClose} isOpen={isOpen}>
         <DrawerOverlay />
         <DrawerContent p={0}>
