@@ -30,3 +30,9 @@ export default async function todosStatusApi(
       break;
   }
 }
+
+export const config = {
+  api: {
+    externalResolver: true,
+  },
+};

@@ -12,3 +12,9 @@ export default async function register(
 
   google_auth_handler(req, res);
 }
+
+export const config = {
+  api: {
+    externalResolver: true,
+  },
+};

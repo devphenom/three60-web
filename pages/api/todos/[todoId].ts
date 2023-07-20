@@ -31,3 +31,9 @@ export default async function oneTodo(
       break;
   }
 }
+
+export const config = {
+  api: {
+    externalResolver: true,
+  },
+};

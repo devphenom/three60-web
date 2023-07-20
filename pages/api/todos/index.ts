@@ -28,3 +28,9 @@ export default async function register(
       break;
   }
 }
+
+export const config = {
+  api: {
+    externalResolver: true,
+  },
+};
