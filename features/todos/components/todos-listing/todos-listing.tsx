@@ -6,16 +6,34 @@ import { useGetTodosQuery } from '@todos/redux/todo-api';
 import EmptyTodo from '@todos/components/empty-todo/empty-todo';
 import { ITodo } from '@todos/services/todo-types';
 import TodoCardSkeleton from '../todo-card-skeleton/todo-card-skeleton';
+import { useEffect, useState } from 'react';
 
 const TodosListing = () => {
   const { currentStatus, searchTerm } = useAppSelector((state) => state.todo);
 
-  const { data, isLoading /*isFetching*/ } = useGetTodosQuery({
+  const [isReloading, setIsReloading] = useState(false);
+  const [trackingStatusId, setTrackingStatusId] = useState<null | number>(null);
+
+  const { data, isFetching } = useGetTodosQuery({
     statusId: currentStatus.id ?? 0,
     searchTerm,
   });
 
-  if (isLoading) {
+  useEffect(() => {
+    if (isFetching) {
+      if (trackingStatusId !== currentStatus.id) {
+        setIsReloading(true);
+        setTrackingStatusId(currentStatus.id ?? 0);
+      } else {
+        setIsReloading(false);
+      }
+    } else {
+      setIsReloading(false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isFetching]);
+
+  if (isReloading) {
     return (
       <>
         <Wrap>
