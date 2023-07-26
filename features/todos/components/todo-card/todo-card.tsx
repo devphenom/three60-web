@@ -18,7 +18,7 @@ import {
   useUpdateTodoMutation,
 } from '@todos/redux/todo-api';
 import EditTodo from '../edit-todo/edit-todo';
-import {  ITodoStatus, TTodoCardProps } from '@todos/services/todo-types';
+import { ITodoStatus, TTodoCardProps } from '@todos/services/todo-types';
 import { statusBtnColorScheme } from '@todos/services/todo-utils';
 import { formatEventTime, formatFullDate } from '@utils/functions';
 
