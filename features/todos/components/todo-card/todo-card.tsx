@@ -21,6 +21,7 @@ import EditTodo from '../edit-todo/edit-todo';
 import { ITodoStatus, TTodoCardProps } from '@todos/services/todo-types';
 import { statusBtnColorScheme } from '@todos/services/todo-utils';
 import { formatEventTime, formatFullDate } from '@utils/functions';
+import { useRouter } from 'next/router';
 
 const menuItemProps = {
   p: 6,
@@ -33,6 +34,7 @@ const menuItemProps = {
 const TodoCard = ({ item }: TTodoCardProps) => {
   const [updateTodo, { isLoading }] = useUpdateTodoMutation();
   const { data } = useGetTodoStatusQuery();
+  const router = useRouter();
 
   return (
     <Container
@@ -41,7 +43,14 @@ const TodoCard = ({ item }: TTodoCardProps) => {
       bg="white"
       borderRadius={5}
     >
-      <Heading as="h6" fontSize="md" fontWeight="400" data-testid="heading">
+      <Heading
+        as="h6"
+        fontSize="md"
+        fontWeight="400"
+        data-testid="heading"
+        onClick={() => router.push(`/todos/${item._id}`)}
+        cursor="pointer"
+      >
         {item?.title}
       </Heading>
       <Text

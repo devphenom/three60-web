@@ -10,6 +10,8 @@ export default {
     700: '#2a69ac',
     800: '#153e75',
     900: '#1a365d',
+    PRY: '#4673E4;',
+    PRYLIGHT: 'rgba(70, 115, 228, 0.18);',
   },
   secondary: {
     50: '#28BA63',
