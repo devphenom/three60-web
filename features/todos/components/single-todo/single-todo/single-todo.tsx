@@ -8,6 +8,7 @@ import EditTodo from '../../edit-todo/edit-todo';
 import { formatDatetime } from '@utils/functions';
 import { useGetTodoQuery, useUpdateTodoMutation } from '@todos/redux/todo-api';
 import { statusBtnColorScheme } from '@todos/services/todo-utils';
+import SingleTodoSkeleton from '../single-todo-skeleton/single-todo-skeleton';
 
 type Props = {};
 
@@ -97,7 +98,7 @@ const SingleTodo = (props: Props) => {
       </>
     );
 
-  return <>Loading....</>;
+  return <SingleTodoSkeleton />;
 };
 
 export default SingleTodo;
