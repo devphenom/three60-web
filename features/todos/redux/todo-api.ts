@@ -22,6 +22,11 @@ export const todoApi = api.injectEndpoints({
       providesTags: ['Todos'],
     }),
 
+    getTodo: build.query<ITodo, string>({
+      query: (id: string) => `/todos/${id}`,
+      providesTags: ['Todo'],
+    }),
+
     postTodo: build.mutation<void, FormikValues>({
       query: (body) => {
         return {
@@ -41,7 +46,7 @@ export const todoApi = api.injectEndpoints({
           body,
         };
       },
-      invalidatesTags: ['Todos'],
+      invalidatesTags: ['Todos', 'Todo'],
     }),
 
     getTodoStatus: build.query<{ status: ITodoStatus[] }, void>({
@@ -53,6 +58,7 @@ export const todoApi = api.injectEndpoints({
 export const {
   useGetTodoCountsQuery,
   useGetTodosQuery,
+  useGetTodoQuery,
   usePostTodoMutation,
   useUpdateTodoMutation,
   useGetTodoStatusQuery,

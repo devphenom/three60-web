@@ -88,7 +88,7 @@ export function formatDate(datetime: string) {
 
 export function formatDatetime(
   datetime: string,
-  dateStyle: 'full' | 'long' | 'medium' | 'short' | undefined,
+  dateStyle?: 'full' | 'long' | 'medium' | 'short' | undefined,
 ) {
   return new Intl.DateTimeFormat('en-GB', {
     dateStyle: dateStyle ?? 'medium',
