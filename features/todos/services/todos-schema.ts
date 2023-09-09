@@ -11,7 +11,6 @@ const todosSchema = new Schema(
       type: Number,
       default: 1,
     },
-    status: todosStatusSchema,
   },
   {
     timestamps: true,

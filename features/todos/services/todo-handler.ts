@@ -56,7 +56,6 @@ async function createTodo_handler(
       title,
       description,
       userId: user._id,
-      status: defaultStatus,
     });
 
     res.status(200).send({ data: createTodo });
@@ -93,9 +92,6 @@ async function updateOneTodo_handler(
 
     Object.keys(rest).forEach(async (key) => {
       todo[key] = rest[key];
-      if (key === 'status') {
-        todo.status = status;
-      }
     });
 
     await todo.save();
