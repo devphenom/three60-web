@@ -53,3 +53,5 @@ old
 .history
 
 __tests__/env_setup.ts
+# Local Netlify folder
+.netlify
