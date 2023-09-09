@@ -38,7 +38,6 @@
       "@controllers": ["server/controllers"],
       "@api": ["pages/api"],
       "@api/*": ["pages/api/*"],
-
       "@auth/*": ["features/auth/*"],
       "@todos/*": ["features/todos/*"]
     }

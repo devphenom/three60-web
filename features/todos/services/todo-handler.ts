@@ -48,15 +48,13 @@ async function createTodo_handler(
   try {
     await clientPromise();
 
-    const { title, description } = req.body;
-
-    const defaultStatus = await TodosStatus.findOne({ id: 1 });
+    const { title, description, expiryDate } = req.body;
 
     const createTodo: ITodo = await Todos.create({
       title,
       description,
+      expiryDate,
       userId: user._id,
-      status: defaultStatus,
     });
 
     res.status(200).send({ data: createTodo });
@@ -93,9 +91,6 @@ async function updateOneTodo_handler(
 
     Object.keys(rest).forEach(async (key) => {
       todo[key] = rest[key];
-      if (key === 'status') {
-        todo.status = status;
-      }
     });
 
     await todo.save();

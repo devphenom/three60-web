@@ -1,5 +1,3 @@
-import { SerializedError } from '@reduxjs/toolkit';
-
 export const TODO_STATUS = Object.freeze({
   ALL_TODOS: { label: 'All Todos', value: 'ALL_TODOS' },
   BACKLOG: { label: 'Backlog', value: 'BACKLOG' },
