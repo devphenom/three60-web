@@ -22,6 +22,14 @@ export const statusBtnColorScheme: { [key: number]: string } = {
   5: 'red',
 };
 
+export const statusTitle: { [key: number]: string } = {
+  1: 'Backlog',
+  2: 'In Progress',
+  3: 'Finished',
+  4: 'Overdue',
+  5: 'Trash',
+};
+
 // export enum TodoStatus {
 //   'BACKLOG',
 //   'INPROGRESS',

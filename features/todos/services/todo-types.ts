@@ -25,6 +25,7 @@ export interface ITodo {
   statusId: number;
   createdAt: string;
   updatedAt: string;
+  expiryDate: string;
 }
 
 export interface ITodoForm {
@@ -58,7 +59,7 @@ export type TTodoCardProps = { item: ITodo };
 export interface ITodoReducer {
   todoCounts: null | ITodoStatus[];
   currentStatus: Partial<ITodoStatus>;
-  searchTerm: string
+  searchTerm: string;
 }
 
 // export interface ITodoCount
