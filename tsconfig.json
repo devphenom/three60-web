@@ -43,6 +43,13 @@
       "@todos/*": ["features/todos/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src", "theme"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "src",
+    "theme",
+    "netlify/functions/cron.ts"
+  ],
   "exclude": ["node_modules"]
 }
