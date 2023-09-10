@@ -83,16 +83,18 @@ const SingleTodo = (props: Props) => {
               </EditTodo>
             )}
 
-            <IconButton
-              isRound
-              isLoading={isLoading}
-              bg="red.100"
-              color="red.500"
-              aria-label="edit todo"
-              icon={<Trash weight="thin" size={32} />}
-              size="lg"
-              onClick={() => updateTodo({ ...data, statusId: 5 })}
-            />
+            {data.statusId !== 5 && (
+              <IconButton
+                isRound
+                isLoading={isLoading}
+                bg="red.100"
+                color="red.500"
+                aria-label="edit todo"
+                icon={<Trash weight="thin" size={32} />}
+                size="lg"
+                onClick={() => updateTodo({ ...data, statusId: 5 })}
+              />
+            )}
           </Flex>
         </Box>
       </>
