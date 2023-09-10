@@ -28,6 +28,7 @@ const EditTodo = ({ children, item }: IEditTodoProps) => {
         initialValues={{
           title: item.title,
           description: item.description,
+          expiryDate: new Date(item.expiryDate),
         }}
       />
     </>

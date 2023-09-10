@@ -7,7 +7,7 @@ import { Clock, PencilSimpleLine, Trash } from '@phosphor-icons/react';
 import EditTodo from '../../edit-todo/edit-todo';
 import { formatDatetime } from '@utils/functions';
 import { useGetTodoQuery, useUpdateTodoMutation } from '@todos/redux/todo-api';
-import { statusBtnColorScheme } from '@todos/services/todo-utils';
+import { statusBtnColorScheme, statusTitle } from '@todos/services/todo-utils';
 
 type Props = {};
 
@@ -32,25 +32,25 @@ const SingleTodo = (props: Props) => {
       <>
         <Flex justifyContent={'space-between'} mb={4}>
           <HStack>
-            <Circle size={9} bg={`${statusBtnColorScheme[data.status.id]}.100`}>
+            <Circle size={9} bg={`${statusBtnColorScheme[data.statusId]}.100`}>
               <Circle
                 color="white"
-                bg={`${statusBtnColorScheme[data.status.id]}.500`}
+                bg={`${statusBtnColorScheme[data.statusId]}.500`}
                 size={8}
               >
                 {data.statusId}
               </Circle>
             </Circle>
             <Text
-              color={`${statusBtnColorScheme[data.status.id]}.500`}
+              color={`${statusBtnColorScheme[data.statusId]}.500`}
               fontSize="xl"
             >
-              {data.status.description}
+              {statusTitle[data.statusId]}
             </Text>
           </HStack>
           <HStack color="blackAlpha.500">
             <Clock weight="light" size={24} />
-            <Text fontSize="md">{formatDatetime(data?.createdAt)}</Text>
+            <Text fontSize="md">{formatDatetime(data?.expiryDate)}</Text>
           </HStack>
         </Flex>
 

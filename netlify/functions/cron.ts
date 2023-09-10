@@ -1,6 +1,6 @@
 import { schedule, HandlerEvent, HandlerContext } from '@netlify/functions';
-import clientPromise from '../../utils/mongo-db';
-import Todos from '../../features/todos/services/todos-schema';
+import clientPromise from '@utils/mongo-db';
+import Todos from '@todos/services/todos-schema';
 
 const cronHandler = async (event: HandlerEvent, context: HandlerContext) => {
   try {
@@ -8,7 +8,7 @@ const cronHandler = async (event: HandlerEvent, context: HandlerContext) => {
     const updatedTodos = await Todos.updateMany(
       {
         statusId: { $in: [1, 2] },
-        // todoEndTime: { $lt: new Date() }, // TODO: uncomment this when todo end time is initialized.
+        expiryDate: { $lt: new Date() },
       },
       { $set: { statusId: 4 } },
     );
