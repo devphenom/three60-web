@@ -5,6 +5,7 @@ import { FormInput, FormTextarea } from '@components';
 import { Button } from '@global';
 import { TODO_FORM_VALIDATION_SCHEMA } from '../../services/todo-form-validation';
 import { ITodoForm, TTodoFormProps } from '@todos/services/todo-types';
+import FormDateTimeInput from '../../../../components/form-date-time-input/form-date-time-input';
 
 const TodoForm = ({
   onClose,
@@ -16,6 +17,7 @@ const TodoForm = ({
   const [formValues, setFormValues] = useState<ITodoForm>({
     title: '',
     description: '',
+    expiryDate: new Date(Date.now()),
   });
 
   useEffect(() => {
@@ -31,7 +33,14 @@ const TodoForm = ({
       initialValues={formValues}
       onSubmit={onSubmit}
     >
-      {({ values, handleChange, errors, touched, handleSubmit }) => {
+      {({
+        values,
+        handleChange,
+        errors,
+        touched,
+        setFieldValue,
+        handleSubmit,
+      }) => {
         return (
           <form onSubmit={handleSubmit}>
             <Box>
@@ -44,6 +53,7 @@ const TodoForm = ({
                 value={values.title}
                 isInvalid={touched?.title && !!errors.title}
               />
+
               <FormTextarea
                 onChange={handleChange}
                 mb={5}
@@ -52,6 +62,18 @@ const TodoForm = ({
                 placeholder="enter description"
                 value={values.description}
                 isInvalid={touched?.description && !!errors.description}
+              />
+              <FormDateTimeInput
+                label="Expiry Date"
+                name="expiryDate"
+                value={values.expiryDate}
+                minDate={new Date()}
+                placeholder="Pick date & time"
+                isInvalid={touched?.expiryDate && !!errors.expiryDate}
+                validationMessage={touched.expiryDate && errors.expiryDate}
+                onChange={(date) => {
+                  setFieldValue('expiryDate', date);
+                }}
               />
 
               <HStack justify={'space-between'} my="5">

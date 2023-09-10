@@ -19,7 +19,7 @@ import {
 } from '@todos/redux/todo-api';
 import EditTodo from '../edit-todo/edit-todo';
 import { ITodoStatus, TTodoCardProps } from '@todos/services/todo-types';
-import { statusBtnColorScheme } from '@todos/services/todo-utils';
+import { statusBtnColorScheme, statusTitle } from '@todos/services/todo-utils';
 import { formatEventTime, formatFullDate } from '@utils/functions';
 import { useRouter } from 'next/router';
 
@@ -59,8 +59,8 @@ const TodoCard = ({ item }: TTodoCardProps) => {
         color="blackAlpha.500"
         data-testid="date-created"
       >
-        Created on {formatFullDate(item?.createdAt)} at{' '}
-        {formatEventTime(item?.createdAt)}
+        Expires on {formatFullDate(item?.expiryDate || item?.createdAt)} at{' '}
+        {formatEventTime(item?.expiryDate || item?.createdAt)}
       </Text>
       <Flex justify={'space-between'}>
         <Menu>
@@ -72,7 +72,7 @@ const TodoCard = ({ item }: TTodoCardProps) => {
             isDisabled={isLoading}
             colorScheme={statusBtnColorScheme[item.statusId]}
           >
-            {item?.status?.description}
+            {statusTitle[item?.statusId]}
           </MenuButton>
           <MenuList>
             {data?.status

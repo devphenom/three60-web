@@ -4,12 +4,15 @@ import { ChakraProvider } from '@chakra-ui/react';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import store from '@redux/store';
 
-import '@styles/globals.css';
 import theme from '../theme';
 import { isAuth, tokenVar } from '@auth/services/auth-utils';
 import { useAppDispatch } from '@redux/hooks';
 import { useEffect } from 'react';
 import { setAuth } from '@auth/redux/auth-slice';
+
+import '@styles/globals.css';
+import '@styles/custom-datepicker.css';
+import 'react-datepicker/dist/react-datepicker.css';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
