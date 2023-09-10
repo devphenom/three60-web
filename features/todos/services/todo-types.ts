@@ -31,6 +31,7 @@ export interface ITodo {
 export interface ITodoForm {
   title: string;
   description: string;
+  expiryDate: Date;
 }
 
 export type TTodoFormModalProps = {

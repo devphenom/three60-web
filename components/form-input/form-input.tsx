@@ -22,7 +22,7 @@ interface IFormInput {
   borderBottomRightRadius?: string;
 }
 
-const StylednInput = styled(Input)`
+const StyledInput = styled(Input)`
   box-shadow: none;
   border-radius: 3px;
   border-top-left-radius: ${(props) => props.borderTopLeftRadius || '3px'};
@@ -48,7 +48,7 @@ const FormInput: React.FC<IFormInput> = (props) => {
   return (
     <FormControl mb={mb || 4} color="var(--form-label)" isInvalid={isInvalid}>
       {label && <FormLabel fontWeight="400"> {label} </FormLabel>}
-      <StylednInput {...rest} w="full" />
+      <StyledInput {...rest} w="full" />
       {isInvalid && (
         <FormErrorMessage fontWeight={300}>
           {' '}
