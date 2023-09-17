@@ -13,12 +13,12 @@ async function getTodo_handler(
   res: NextApiResponse,
   user: UserTokenData,
 ) {
-  const { statusId, searchTerm } = req.query;
+  const { statusId, searchTerm, limit = 10, page = 1 } = req.query;
 
   try {
     await clientPromise();
 
-    let results: ITodo[] = await Todos.find({
+    const filter = {
       userId: user._id,
 
       ...(!!Number(statusId) ? { statusId: statusId } : {}),
@@ -30,11 +30,23 @@ async function getTodo_handler(
             ],
           }
         : {}),
-    }).sort({ createdAt: -1 });
+    };
+
+    let results: ITodo[] = await Todos.find(filter)
+      .sort({ createdAt: -1 })
+      .limit(Number(limit) * 1)
+      .skip((Number(page) - 1) * Number(limit))
+      .exec();
+
+    const counts = await Todos.countDocuments(filter);
 
     results = JSON.parse(JSON.stringify(results));
 
-    res.status(200).send({ todos: results });
+    res.status(200).send({
+      todos: results,
+      totalPages: Math.ceil(counts / Number(limit)),
+      currentPage: page,
+    });
   } catch (error) {
     handleAnErrorOccurred(res);
   }

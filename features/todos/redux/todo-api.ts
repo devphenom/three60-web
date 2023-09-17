@@ -2,9 +2,9 @@ import { api } from '@redux/api';
 import { ITodo, ITodoStatus } from '@todos/services/todo-types';
 import { FormikValues } from 'formik';
 
-interface QueryFunction<T> {
-  (statusId: number, searchTerm: string): T;
-}
+// interface QueryFunction<T> {
+//   (statusId: number, searchTerm: string): T;
+// }
 
 export const todoApi = api.injectEndpoints({
   endpoints: (build) => ({
@@ -14,11 +14,11 @@ export const todoApi = api.injectEndpoints({
     }),
 
     getTodos: build.query<
-      { todos: ITodo[] },
-      { statusId: number; searchTerm: string }
+      { todos: ITodo[]; totalPages: number; currentPage: number },
+      { statusId: number; searchTerm: string; limit: number; page: number }
     >({
-      query: ({ statusId, searchTerm }) =>
-        `/todos?statusId=${statusId}&searchTerm=${searchTerm}`,
+      query: ({ statusId, searchTerm, limit, page }) =>
+        `/todos?limit=${limit}&page=${page}&statusId=${statusId}&searchTerm=${searchTerm}`,
       providesTags: ['Todos'],
     }),
 
